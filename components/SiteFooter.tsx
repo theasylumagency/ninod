@@ -39,17 +39,17 @@ export default function SiteFooter() {
         <div className="col-span-1 md:col-span-3 flex flex-col space-y-4">
           <h4 className="text-xs uppercase tracking-[0.25em] font-medium text-stone-grey">Navigation</h4>
           <nav className="flex flex-col space-y-3">
-            <Link href="/works" className="text-xs uppercase tracking-[0.2em] hover:text-deep-oxblood transition-colors w-fit">
-              Works
+            <Link href="/visual-archive" className="text-xs uppercase tracking-[0.2em] hover:text-deep-oxblood transition-colors w-fit">
+              Visual Archive
             </Link>
             <Link href="/wearable-archive" className="text-xs uppercase tracking-[0.2em] hover:text-deep-oxblood transition-colors w-fit">
               Wearable Archive
             </Link>
             <Link href="/studio" className="text-xs uppercase tracking-[0.2em] hover:text-deep-oxblood transition-colors w-fit">
-              Studio
+              About
             </Link>
             <Link href="/acquire" className="text-xs uppercase tracking-[0.2em] hover:text-deep-oxblood transition-colors w-fit">
-              Acquire
+              Inquire
             </Link>
           </nav>
         </div>

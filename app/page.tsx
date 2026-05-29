@@ -50,10 +50,10 @@ export default function Home() {
                 Explore The Wearable Archive
               </Link>
               <Link
-                href="/works"
+                href="/visual-archive"
                 className="border border-stone-grey/30 text-ink-black text-xs uppercase tracking-[0.2em] font-medium py-4 px-6 text-center hover:border-ink-black transition-colors duration-300"
               >
-                View Works
+                Explore The Visual Archive
               </Link>
             </div>
           </div>
@@ -91,10 +91,10 @@ export default function Home() {
                 Explore The Wearable Archive
               </Link>
               <Link
-                href="/works"
+                href="/visual-archive"
                 className="border border-stone-grey/30 text-ink-black text-[10px] uppercase tracking-[0.25em] font-medium py-4 px-6 hover:border-ink-black transition-colors duration-300 text-center"
               >
-                View Works
+                Explore The Visual Archive
               </Link>
             </div>
           </div>
@@ -133,10 +133,10 @@ export default function Home() {
             </p>
             <div className="pt-4">
               <Link
-                href="/works"
+                href="/visual-archive"
                 className="text-xs uppercase tracking-[0.2em] font-medium border-b border-ink-black/20 pb-1 hover:border-deep-oxblood hover:text-deep-oxblood transition-all duration-300"
               >
-                View Works
+                Explore The Visual Archive
               </Link>
             </div>
           </div>

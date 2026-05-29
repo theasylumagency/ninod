@@ -10,10 +10,10 @@ export default function SiteHeader() {
   const pathname = usePathname();
 
   const links = [
-    { name: "Works", href: "/works" },
+    { name: "Visual Archive", href: "/visual-archive" },
     { name: "Wearable Archive", href: "/wearable-archive" },
-    { name: "Studio", href: "/studio" },
-    { name: "Acquire", href: "/acquire" },
+    { name: "About", href: "/studio" },
+    { name: "Inquire", href: "/acquire" },
   ];
 
   const toggleMenu = () => setIsOpen(!isOpen);
