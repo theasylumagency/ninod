@@ -1,258 +1,409 @@
-"use client";
-
-import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import LogoMark from "@/components/LogoMark";
 
+const phoneDisplay = "+995 574 40 60 61";
+const phoneHref = "+995574406061";
+const email = "studio@ninod.space";
+
 export default function CardPage() {
-  const [saved, setSaved] = useState(false);
-
-  const handleSaveContact = () => {
-    const vcard = `BEGIN:VCARD
-VERSION:3.0
-FN:Nino Devdariani
-ORG:Nino D
-TITLE:Artist
-TEL;TYPE=work,voice:+995574406061
-EMAIL;TYPE=WORK,PREF:studio@ninod.space
-URL;TYPE=WORK:https://ninod.space
-NOTE:Contemporary Art & Wearable Archive by Nino Devdariani.
-END:VCARD`;
-
-    const blob = new Blob([vcard], { type: "text/vcard;charset=utf-8;" });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement("a");
-    link.href = url;
-    link.setAttribute("download", "Nino_Devdariani.vcf");
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    URL.revokeObjectURL(url);
-
-    setSaved(true);
-    setTimeout(() => setSaved(false), 4000);
-  };
+  const currentYear = new Date().getFullYear();
 
   return (
-    <div className="w-full flex flex-col bg-warm-ivory text-ink-black min-h-screen pb-24 font-sans select-none antialiased relative">
-      
+    <main className="w-full flex flex-col bg-warm-ivory text-ink-black min-h-screen pb-28 font-sans antialiased relative">
       {/* ==========================================
-          MOBILE STICKY APP-LIKE HEADER
+          MOBILE STICKY HEADER
           ========================================== */}
       <header className="sticky top-0 z-50 w-full bg-warm-ivory/95 backdrop-blur-md border-b border-stone-grey/25 py-4 px-6 flex items-center justify-between">
-        <Link 
-          href="/" 
+        <Link
+          href="/"
           className="text-stone-grey hover:text-ink-black transition-colors"
-          aria-label="Go Home"
+          aria-label="Go home"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={1.5}
+            stroke="currentColor"
+            className="w-5 h-5"
+            aria-hidden="true"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M15.75 19.5L8.25 12l7.5-7.5"
+            />
           </svg>
         </Link>
-        
-        <Link href="/" className="flex justify-center flex-grow pr-5">
+
+        <Link href="/" className="flex justify-center flex-grow pr-5" aria-label="Nino D home">
           <LogoMark className="h-6 w-auto text-ink-black" />
         </Link>
       </header>
 
       {/* ==========================================
-          SUCCESS TOAST
-          ========================================== */}
-      <div 
-        className={`fixed top-20 left-1/2 -translate-x-1/2 z-50 bg-ink-black text-warm-ivory px-6 py-3 shadow-xl border border-stone-grey/30 flex items-center gap-3 transition-all duration-500 ease-out max-w-[90%] w-sm ${
-          saved ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4 pointer-events-none"
-        }`}
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5 text-aged-brass shrink-0 animate-bounce">
-          <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-        </svg>
-        <div className="flex flex-col text-left">
-          <span className="text-xs font-semibold uppercase tracking-wider">Contact Saved</span>
-          <span className="text-[10px] text-stone-grey">VCard (.vcf) file successfully generated</span>
-        </div>
-      </div>
-
-      {/* ==========================================
-          HERO BANNER
+          HERO IMAGE
           ========================================== */}
       <section className="relative w-full aspect-[4/3] bg-paper-grey overflow-hidden border-b border-stone-grey/25">
         <Image
           src="/art/resistance.jpg"
-          alt="Nino Devdariani Artwork Detail"
+          alt="Nino Devdariani artwork detail"
           fill
           priority
           className="object-cover"
           sizes="100vw"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-warm-ivory via-warm-ivory/10 to-transparent"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-warm-ivory via-warm-ivory/10 to-transparent" />
       </section>
 
       {/* ==========================================
           BRAND INTRO
           ========================================== */}
-      <section className="px-6 pt-6 pb-4 text-center flex flex-col items-center">
+      <section className="px-6 pt-8 pb-5 text-center flex flex-col items-center">
+        <p className="text-[10px] uppercase tracking-[0.34em] text-stone-grey font-semibold mb-3">
+          Nino D
+        </p>
+
         <h1 className="font-serif italic text-3xl md:text-4xl text-ink-black tracking-wide leading-tight">
           Paintings that leave the wall.
         </h1>
-        <p className="text-xs text-stone-grey mt-3 max-w-xs leading-relaxed tracking-wide">
-          A world of figures, fragments, and wearable silk archives by artist Nino Devdariani.
+
+        <p className="text-xs text-stone-grey mt-4 max-w-xs leading-relaxed tracking-wide">
+          Selected works, wearable silk editions, and direct studio contact.
         </p>
       </section>
 
       {/* ==========================================
-          PRIMARY CALL TO ACTION: SAVE CONTACT CARD
+          PRIMARY ACTIONS
           ========================================== */}
       <section className="px-6 py-6 w-full max-w-md mx-auto">
-        <div className="bg-paper-grey/40 border border-stone-grey/25 p-6 shadow-sm flex flex-col items-center text-center gap-4 relative group overflow-hidden">
-          <div className="absolute top-0 left-0 w-full h-[3px] bg-deep-oxblood"></div>
-          
-          <div className="w-12 h-12 bg-warm-ivory rounded-full flex items-center justify-center border border-stone-grey/20 text-deep-oxblood shadow-inner">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.25} stroke="currentColor" className="w-6 h-6">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
-            </svg>
-          </div>
-
-          <div className="space-y-1">
-            <h3 className="text-xs uppercase tracking-[0.25em] font-semibold text-ink-black">Nino Devdariani</h3>
-            <p className="text-[10px] text-stone-grey uppercase tracking-widest font-medium">studio@ninod.com</p>
-          </div>
-
-          <button
-            onClick={handleSaveContact}
-            className="w-full bg-ink-black text-warm-ivory text-[10px] font-semibold uppercase tracking-[0.2em] py-4 px-6 hover:bg-deep-oxblood active:scale-[0.98] transition-all duration-300 shadow-md flex items-center justify-center gap-2 cursor-pointer"
+        <div className="grid grid-cols-1 gap-3">
+          <Link
+            href="/visual-archive"
+            className="w-full text-center bg-ink-black text-warm-ivory text-[10px] font-semibold uppercase tracking-[0.2em] py-4 px-6 hover:bg-deep-oxblood active:scale-[0.98] transition-all duration-300 shadow-md"
           >
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-4 h-4 text-aged-brass">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M19 7.5v3m0 0v3m0-3h3m-3 0h-3m-9-3.5h9.81m-9.81 3h5.625M4.5 19.5h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5z" />
-            </svg>
-            SAVE CONTACT INFO
-          </button>
-          
-          <p className="text-[9px] text-stone-grey/80 leading-normal">
-            Add Nino D Representative to your phone contact list in one tap.
-          </p>
+            View Selected Works
+          </Link>
+
+          <Link
+            href="/wearable-archive"
+            className="w-full text-center border border-ink-black text-ink-black text-[10px] font-semibold uppercase tracking-[0.2em] py-4 px-6 hover:bg-ink-black hover:text-warm-ivory active:scale-[0.98] transition-all duration-300 shadow-sm"
+          >
+            Explore Silk Editions
+          </Link>
+
+          <a
+            href="/contact-card"
+            className="w-full text-center border border-stone-grey/40 text-ink-black text-[10px] font-semibold uppercase tracking-[0.2em] py-4 px-6 hover:border-ink-black hover:bg-paper-grey/50 active:scale-[0.98] transition-all duration-300 shadow-sm"
+          >
+            Save Contact Card
+          </a>
+        </div>
+
+        <p className="text-[9px] text-stone-grey/80 leading-normal text-center mt-4">
+          Your phone may ask you to confirm adding the contact.
+        </p>
+      </section>
+
+      {/* ==========================================
+          CONTACT QUICK ACTIONS
+          ========================================== */}
+      <section className="px-6 py-6 w-full max-w-md mx-auto">
+        <div className="bg-paper-grey/40 border border-stone-grey/25 p-6 shadow-sm flex flex-col gap-5 relative overflow-hidden">
+          <div className="absolute top-0 left-0 w-full h-[3px] bg-deep-oxblood" />
+
+          <div className="text-center space-y-2">
+            <h2 className="font-serif text-2xl text-ink-black tracking-wide">
+              Studio Contact
+            </h2>
+
+            <p className="text-xs text-stone-grey leading-relaxed">
+              For original works, wearable editions, collaborations, and gallery inquiries.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-2 gap-3">
+            <a
+              href={`mailto:${email}`}
+              className="bg-ink-black text-warm-ivory text-[10px] font-semibold uppercase tracking-[0.2em] py-4 px-4 hover:bg-deep-oxblood active:scale-[0.98] transition-all duration-300 shadow-md flex items-center justify-center text-center"
+            >
+              Email Studio
+            </a>
+
+            <a
+              href={`https://wa.me/${phoneHref.replace("+", "")}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="border border-ink-black text-ink-black text-[10px] font-semibold uppercase tracking-[0.2em] py-4 px-4 hover:bg-ink-black hover:text-warm-ivory active:scale-[0.98] transition-all duration-300 shadow-sm flex items-center justify-center text-center"
+            >
+              WhatsApp
+            </a>
+          </div>
+
+          <div className="text-center space-y-1 pt-2">
+            <a
+              href={`mailto:${email}`}
+              className="block text-[10px] uppercase tracking-[0.22em] text-stone-grey hover:text-ink-black transition-colors"
+            >
+              {email}
+            </a>
+
+            <a
+              href={`tel:${phoneHref}`}
+              className="block text-[10px] uppercase tracking-[0.22em] text-stone-grey hover:text-ink-black transition-colors"
+            >
+              {phoneDisplay}
+            </a>
+
+            <a
+              href="https://ninod.space"
+              className="block text-[10px] uppercase tracking-[0.22em] text-stone-grey hover:text-ink-black transition-colors"
+            >
+              ninod.space
+            </a>
+          </div>
         </div>
       </section>
 
       {/* ==========================================
-          SECTION 01 - THE VISUAL ARCHIVE
+          SECTION 01 — VISUAL ARCHIVE
           ========================================== */}
       <section className="px-6 py-8 flex flex-col gap-5 border-t border-stone-grey/15 mt-4">
         <div className="flex flex-col gap-1.5 border-b border-stone-grey/25 pb-3">
-          <span className="text-[9px] uppercase tracking-[0.3em] text-deep-oxblood font-bold">01 — The Visual Archive</span>
-          <h2 className="font-serif text-2xl text-ink-black uppercase tracking-wide">Original Works</h2>
-          <p className="text-xs text-stone-grey">Mediums on canvas, linen, and oil texture.</p>
+          <span className="text-[9px] uppercase tracking-[0.3em] text-deep-oxblood font-bold">
+            01 — Visual Archive
+          </span>
+
+          <h2 className="font-serif text-2xl text-ink-black uppercase tracking-wide">
+            Selected Works
+          </h2>
+
+          <p className="text-xs text-stone-grey">
+            Selected paintings from the Nino D archive.
+          </p>
         </div>
-        
-        <div className="relative w-full aspect-[4/5] bg-paper-grey border border-stone-grey/15 p-2 bg-white shadow-sm overflow-hidden group">
+
+        <Link
+          href="/visual-archive"
+          className="relative w-full aspect-[4/5] bg-paper-grey border border-stone-grey/15 p-2 bg-white shadow-sm overflow-hidden group block"
+          aria-label="Open Visual Archive"
+        >
           <Image
             src="/art/alter_ego.jpg"
-            alt="Original Painting - Alter Ego"
+            alt="Original painting from the Nino D Visual Archive"
             fill
-            className="object-cover p-2 transition-transform duration-[2000ms] scale-100 group-hover:scale-102"
+            className="object-cover p-2 transition-transform duration-[2000ms] group-hover:scale-[1.02]"
             sizes="100vw"
           />
-        </div>
+        </Link>
 
         <Link
           href="/visual-archive"
           className="w-full text-center bg-ink-black text-warm-ivory text-[10px] font-semibold uppercase tracking-[0.2em] py-4 px-6 hover:bg-deep-oxblood transition-colors duration-300 shadow-md"
         >
-          EXPLORE PAINTINGS
+          Open Visual Archive
         </Link>
       </section>
 
       {/* ==========================================
-          SECTION 02 - THE WEARABLE ARCHIVE
+          SECTION 02 — WEARABLE ARCHIVE
           ========================================== */}
       <section className="px-6 py-8 flex flex-col gap-5 border-t border-stone-grey/15 mt-4">
         <div className="flex flex-col gap-1.5 border-b border-stone-grey/25 pb-3">
-          <span className="text-[9px] uppercase tracking-[0.3em] text-deep-oxblood font-bold">02 — The Wearable Archive</span>
-          <h2 className="font-serif text-2xl text-ink-black uppercase tracking-wide">Translated into Silk</h2>
-          <p className="text-xs text-stone-grey">Limited editions for the art collector.</p>
+          <span className="text-[9px] uppercase tracking-[0.3em] text-deep-oxblood font-bold">
+            02 — Wearable Archive
+          </span>
+
+          <h2 className="font-serif text-2xl text-ink-black uppercase tracking-wide">
+            Silk Editions
+          </h2>
+
+          <p className="text-xs text-stone-grey">
+            Limited silk editions translated from original works.
+          </p>
         </div>
 
-        <div className="relative w-full aspect-square bg-paper-grey border border-stone-grey/15 p-2 bg-white shadow-sm overflow-hidden group">
+        <Link
+          href="/wearable-archive"
+          className="relative w-full aspect-square bg-paper-grey border border-stone-grey/15 p-2 bg-white shadow-sm overflow-hidden group block"
+          aria-label="Open Wearable Archive"
+        >
           <Image
             src="/scarfs/alter_ego.png"
-            alt="Wearable Scarf - Alter Ego"
+            alt="Limited silk edition from the Nino D Wearable Archive"
             fill
-            className="object-cover p-2 transition-transform duration-[2000ms] scale-100 group-hover:scale-102"
+            className="object-cover p-2 transition-transform duration-[2000ms] group-hover:scale-[1.02]"
             sizes="100vw"
           />
-        </div>
+        </Link>
 
         <Link
           href="/wearable-archive"
           className="w-full text-center border border-ink-black text-ink-black text-[10px] font-semibold uppercase tracking-[0.2em] py-4 px-6 hover:bg-ink-black hover:text-warm-ivory transition-colors duration-300 shadow-sm"
         >
-          EXPLORE WEARABLES
+          Open Wearable Archive
         </Link>
       </section>
 
       {/* ==========================================
-          QUICK ACTIONS
+          SAVE CONTACT BLOCK
           ========================================== */}
-      <section className="px-6 py-10 bg-paper-grey/30 border-t border-stone-grey/20 mt-8">
-        <h4 className="text-[10px] uppercase tracking-[0.3em] text-stone-grey font-bold mb-6 text-center">Studio Navigation</h4>
+      <section className="px-6 py-10 border-t border-stone-grey/15 mt-4">
+        <div className="w-full max-w-md mx-auto border border-stone-grey/25 bg-paper-grey/30 p-6 text-center flex flex-col items-center gap-4">
+          <div className="w-12 h-12 bg-warm-ivory rounded-full flex items-center justify-center border border-stone-grey/20 text-deep-oxblood shadow-inner">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.25}
+              stroke="currentColor"
+              className="w-6 h-6"
+              aria-hidden="true"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"
+              />
+            </svg>
+          </div>
+
+          <div className="space-y-2">
+            <h2 className="font-serif text-2xl text-ink-black tracking-wide">
+              Save the studio contact
+            </h2>
+
+            <p className="text-xs text-stone-grey leading-relaxed">
+              Save the website, studio email, and direct contact details. Your phone may ask for confirmation.
+            </p>
+          </div>
+
+          <a
+            href="/contact-card"
+            className="w-full bg-ink-black text-warm-ivory text-[10px] font-semibold uppercase tracking-[0.2em] py-4 px-6 hover:bg-deep-oxblood active:scale-[0.98] transition-all duration-300 shadow-md flex items-center justify-center gap-2"
+          >
+            Save Contact Card
+          </a>
+        </div>
+      </section>
+
+      {/* ==========================================
+          STUDIO NAVIGATION
+          ========================================== */}
+      <section className="px-6 py-10 bg-paper-grey/30 border-t border-stone-grey/20 mt-4">
+        <h2 className="text-[10px] uppercase tracking-[0.3em] text-stone-grey font-bold mb-6 text-center">
+          Studio Navigation
+        </h2>
+
         <ul className="flex flex-col gap-1">
           <li>
-            <Link 
-              href="/acquire" 
+            <Link
+              href="/acquire"
               className="flex items-center justify-between py-4 border-b border-stone-grey/20 text-ink-black hover:text-deep-oxblood transition-colors group"
             >
-              <span className="font-serif text-lg tracking-wide">Begin an Inquiry</span>
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 group-hover:translate-x-1 transition-transform">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+              <span className="font-serif text-lg tracking-wide">
+                Begin an Inquiry
+              </span>
+
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="w-5 h-5 group-hover:translate-x-1 transition-transform"
+                aria-hidden="true"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
+                />
               </svg>
             </Link>
           </li>
+
           <li>
-            <Link 
-              href="/studio" 
+            <Link
+              href="/studio"
               className="flex items-center justify-between py-4 border-b border-stone-grey/20 text-ink-black hover:text-deep-oxblood transition-colors group"
             >
-              <span className="font-serif text-lg tracking-wide">About the Studio</span>
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 group-hover:translate-x-1 transition-transform">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+              <span className="font-serif text-lg tracking-wide">
+                About the Studio
+              </span>
+
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="w-5 h-5 group-hover:translate-x-1 transition-transform"
+                aria-hidden="true"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
+                />
               </svg>
             </Link>
           </li>
         </ul>
-        
-        <div className="flex justify-center gap-6 mt-10">
-          <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="text-[9px] uppercase tracking-[0.25em] font-semibold text-stone-grey hover:text-ink-black transition-colors">
+
+        <div className="flex flex-wrap justify-center gap-x-6 gap-y-4 mt-10">
+          <a
+            href="https://instagram.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-[9px] uppercase tracking-[0.25em] font-semibold text-stone-grey hover:text-ink-black transition-colors"
+          >
             Instagram
           </a>
-          <span className="text-stone-grey/30">•</span>
-          <a href="https://pinterest.com" target="_blank" rel="noopener noreferrer" className="text-[9px] uppercase tracking-[0.25em] font-semibold text-stone-grey hover:text-ink-black transition-colors">
+
+          <a
+            href="https://pinterest.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-[9px] uppercase tracking-[0.25em] font-semibold text-stone-grey hover:text-ink-black transition-colors"
+          >
             Pinterest
           </a>
-          <span className="text-stone-grey/30">•</span>
-          <a href="mailto:studio@ninod.com" className="text-[9px] uppercase tracking-[0.25em] font-semibold text-stone-grey hover:text-ink-black transition-colors">
+
+          <a
+            href={`mailto:${email}`}
+            className="text-[9px] uppercase tracking-[0.25em] font-semibold text-stone-grey hover:text-ink-black transition-colors"
+          >
             Email
           </a>
         </div>
+
         <p className="text-[9px] text-stone-grey/60 text-center mt-8 tracking-wider">
-          © {new Date().getFullYear()} NINO DEVDARIANI. ALL RIGHTS RESERVED.
+          © {currentYear} NINO D BY NINO DEVDARIANI. ALL RIGHTS RESERVED.
         </p>
       </section>
 
       {/* ==========================================
-          PERSISTENT MOBILE STICKY BOTTOM BAR
+          PERSISTENT MOBILE BOTTOM BAR
           ========================================== */}
       <div className="fixed bottom-0 left-0 w-full p-4 bg-warm-ivory/90 backdrop-blur-md border-t border-stone-grey/20 z-40 flex justify-center shadow-lg">
-        <button
-          onClick={handleSaveContact}
-          className="w-full max-w-md bg-ink-black text-warm-ivory text-[10px] font-semibold uppercase tracking-[0.2em] py-4 px-6 hover:bg-deep-oxblood active:scale-[0.98] transition-all duration-300 shadow-md flex items-center justify-center gap-2 cursor-pointer"
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 text-aged-brass">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
-          </svg>
-          SAVE CONTACT INFO (VCF)
-        </button>
-      </div>
+        <div className="w-full max-w-md grid grid-cols-2 gap-3">
+          <a
+            href={`mailto:${email}`}
+            className="bg-ink-black text-warm-ivory text-[10px] font-semibold uppercase tracking-[0.18em] py-4 px-4 hover:bg-deep-oxblood active:scale-[0.98] transition-all duration-300 shadow-md flex items-center justify-center text-center"
+          >
+            Email Studio
+          </a>
 
-    </div>
+          <a
+            href="/contact-card"
+            className="border border-ink-black text-ink-black bg-warm-ivory text-[10px] font-semibold uppercase tracking-[0.18em] py-4 px-4 hover:bg-ink-black hover:text-warm-ivory active:scale-[0.98] transition-all duration-300 shadow-sm flex items-center justify-center text-center"
+          >
+            Save Contact
+          </a>
+        </div>
+      </div>
+    </main>
   );
 }
