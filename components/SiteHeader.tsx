@@ -23,10 +23,13 @@ export default function SiteHeader() {
   const toggleMenu = () => setIsOpen(!isOpen);
 
   return (
-    <header className="sticky top-0 z-50 w-full bg-warm-ivory/80 backdrop-blur-md border-b border-stone-grey/20">
+    <header className="sticky top-0 z-50 w-full">
+      {/* Top Bar Background and Blur wrapper */}
+      <div className="absolute inset-0 bg-warm-ivory/80 backdrop-blur-md border-b border-stone-grey/20 -z-10" />
+
       <div className="mx-auto max-w-7xl px-6 md:px-12 h-20 flex items-center justify-between">
         {/* Brand Logo */}
-        <Link href="/" className="relative flex items-center transition-colors text-ink-black hover:text-deep-oxblood">
+        <Link href="/" className="relative z-50 flex items-center transition-colors text-ink-black hover:text-deep-oxblood">
           <LogoMark className="h-10 w-auto" />
         </Link>
 
@@ -57,7 +60,7 @@ export default function SiteHeader() {
         {/* Mobile Hamburger Button */}
         <button
           onClick={toggleMenu}
-          className="md:hidden flex flex-col justify-between w-6 h-4 z-50 focus:outline-none"
+          className="relative z-50 md:hidden flex flex-col justify-between w-6 h-4 focus:outline-none"
           aria-label="Toggle Menu"
           aria-expanded={isOpen}
         >
