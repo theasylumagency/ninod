@@ -9,6 +9,10 @@ export default function SiteHeader() {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
 
+  if (pathname === "/card") {
+    return null;
+  }
+
   const links = [
     { name: "Visual Archive", href: "/visual-archive" },
     { name: "Wearable Archive", href: "/wearable-archive" },

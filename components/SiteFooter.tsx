@@ -3,10 +3,16 @@
 import { useState } from "react";
 import Link from "next/link";
 import LogoMark from "@/components/LogoMark";
+import { usePathname } from "next/navigation";
 
 export default function SiteFooter() {
+  const pathname = usePathname();
   const [email, setEmail] = useState("");
   const [subscribed, setSubscribed] = useState(false);
+
+  if (pathname === "/card") {
+    return null;
+  }
 
   const handleSubscribe = (e: React.FormEvent) => {
     e.preventDefault();
