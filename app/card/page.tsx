@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import LogoMark from "@/components/LogoMark";
+import SaveContactButton from "@/components/SaveContactButton";
 
 const phoneDisplay = "+995 574 40 60 61";
 const phoneHref = "+995574406061";
@@ -93,12 +94,9 @@ export default function CardPage() {
             Explore Silk Editions
           </Link>
 
-          <a
-            href="/contact-card"
+          <SaveContactButton
             className="w-full text-center border border-stone-grey/40 text-ink-black text-[10px] font-semibold uppercase tracking-[0.2em] py-4 px-6 hover:border-ink-black hover:bg-paper-grey/50 active:scale-[0.98] transition-all duration-300 shadow-sm"
-          >
-            Save Contact Card
-          </a>
+          />
         </div>
 
         <p className="text-[9px] text-stone-grey/80 leading-normal text-center mt-4">
@@ -279,12 +277,9 @@ export default function CardPage() {
             </p>
           </div>
 
-          <a
-            href="/contact-card"
+          <SaveContactButton
             className="w-full bg-ink-black text-warm-ivory text-[10px] font-semibold uppercase tracking-[0.2em] py-4 px-6 hover:bg-deep-oxblood active:scale-[0.98] transition-all duration-300 shadow-md flex items-center justify-center gap-2"
-          >
-            Save Contact Card
-          </a>
+          />
         </div>
       </section>
 
@@ -396,12 +391,9 @@ export default function CardPage() {
             Email Studio
           </a>
 
-          <a
-            href="/contact-card"
+          <SaveContactButton
             className="border border-ink-black text-ink-black bg-warm-ivory text-[10px] font-semibold uppercase tracking-[0.18em] py-4 px-4 hover:bg-ink-black hover:text-warm-ivory active:scale-[0.98] transition-all duration-300 shadow-sm flex items-center justify-center text-center"
-          >
-            Save Contact
-          </a>
+          />
         </div>
       </div>
     </main>

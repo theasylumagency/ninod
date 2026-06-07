@@ -1,5 +1,5 @@
 export async function GET() {
-    const vcard = [
+    const vcfData = [
         "BEGIN:VCARD",
         "VERSION:3.0",
         "FN:Nino D Studio",
@@ -11,11 +11,10 @@ export async function GET() {
         "END:VCARD",
     ].join("\r\n");
 
-    return new Response(`${vcard}\r\n`, {
+    return new Response(vcfData, {
         headers: {
             "Content-Type": "text/vcard; charset=utf-8",
-            "Content-Disposition": 'inline; filename="nino-d-studio.vcf"',
-            "Cache-Control": "no-store",
+            "Content-Disposition": 'inline; filename="ninod_studio.vcf"', // აუცილებლად inline
         },
     });
 }
