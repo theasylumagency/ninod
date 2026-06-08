@@ -16,7 +16,7 @@ export default function SiteHeader() {
   const links = [
     { name: "Visual Archive", href: "/visual-archive" },
     { name: "Wearable Archive", href: "/wearable-archive" },
-    { name: "About", href: "/studio" },
+    { name: "About", href: "/about" },
     { name: "Inquire", href: "/acquire" },
   ];
 

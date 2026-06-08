@@ -29,3 +29,31 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+@keyframes archive-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+    clip-path: inset(0 0 8% 0);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+.archive-reveal {
+  animation: archive-reveal 800ms ease both;
+}
+
+.archive-reveal-slow {
+  animation-duration: 1100ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .archive-reveal,
+  .archive-reveal-slow {
+    animation: none;
+  }
+}

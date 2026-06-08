@@ -51,7 +51,7 @@ export default function SiteFooter() {
             <Link href="/wearable-archive" className="text-xs uppercase tracking-[0.2em] hover:text-deep-oxblood transition-colors w-fit">
               Wearable Archive
             </Link>
-            <Link href="/studio" className="text-xs uppercase tracking-[0.2em] hover:text-deep-oxblood transition-colors w-fit">
+            <Link href="/about" className="text-xs uppercase tracking-[0.2em] hover:text-deep-oxblood transition-colors w-fit">
               About
             </Link>
             <Link href="/acquire" className="text-xs uppercase tracking-[0.2em] hover:text-deep-oxblood transition-colors w-fit">
