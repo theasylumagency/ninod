@@ -11,7 +11,7 @@ import {
 // SEO / Metadata
 export const metadata: Metadata = {
   title: "Visual Archive — Nino D",
-  description: "Seven selected works from Nino Devdariani’s painted world — a visual archive of theatrical compositions, cultural fragments, textile memory, and private mythology.",
+  description: "Eight selected works from Nino Devdariani’s painted world — a visual archive of theatrical compositions, cultural fragments, textile memory, and private mythology.",
 };
 
 export default function VisualArchivePage() {
@@ -22,6 +22,7 @@ export default function VisualArchivePage() {
   const entry5 = visualArchiveEntries[4];
   const entry6 = visualArchiveEntries[5];
   const entry7 = visualArchiveEntries[6];
+  const entry8 = visualArchiveEntries[7];
 
   return (
     <div className="w-full flex flex-col bg-warm-ivory text-ink-black min-h-screen overflow-x-hidden antialiasedScroll">
@@ -32,13 +33,13 @@ export default function VisualArchivePage() {
       {/* 2. Intro */}
       <VisualArchiveIntro />
 
-      {/* 3. Seven Selected Works Section */}
+      {/* 3. Eight Selected Works Section */}
       <section className="w-full flex flex-col">
         {/* Title Header */}
         <div className="w-full py-12 md:py-16 bg-warm-ivory border-b border-stone-grey/15 text-center md:text-left">
           <div className="mx-auto max-w-7xl px-6 md:px-12">
             <div className="flex items-center gap-3 justify-center md:justify-start">
-              <span className="font-serif text-[11px] uppercase tracking-[0.25em] text-deep-oxblood font-semibold">01 / Curated Curation</span>
+              <span className="font-serif text-[11px] uppercase tracking-[0.25em] text-deep-oxblood font-semibold">01 / Archive Selection</span>
               <span className="h-[1px] w-8 bg-stone-grey/25" />
             </div>
             <h2 className="font-serif text-3xl md:text-4xl uppercase tracking-wider text-ink-black leading-tight mt-3">
@@ -69,6 +70,9 @@ export default function VisualArchivePage() {
 
         {/* 07 — final cinematic block */}
         {entry7 && <ArchiveWorkPlate entry={entry7} />}
+
+        {/* 08 — closing archive plate */}
+        {entry8 && <ArchiveWorkPlate entry={entry8} />}
       </section>
 
       {/* 4. Bridge Section */}

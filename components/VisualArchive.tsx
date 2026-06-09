@@ -22,10 +22,10 @@ export function VisualArchiveHero() {
             Visual <br className="hidden lg:inline" />Archive
           </h1>
           <p className="text-xs text-stone-grey uppercase tracking-[0.15em] font-medium border-t border-stone-grey/15 pt-4">
-            Seven selected works from Nino Devdariani’s painted world.
+            Eight selected works from Nino Devdariani’s painted world.
           </p>
-          <p className="text-sm font-cormorant text-ink-black/80 leading-relaxed max-w-lg italic font-light pt-2">
-            &ldquo;These paintings are not quiet surfaces. They are theatres, archives, costumes, memories, jokes, wounds, and coded histories — dense visual worlds where figures gather, transform, misbehave, and refuse to stay still.&rdquo;
+          <p className="text-sm font-cormorant text-ink-black/80 leading-relaxed max-w-lg font-light pt-2">
+            These paintings are not quiet surfaces. They are theatres, archives, costumes, memories, jokes, wounds, coded histories, and private mythologies — dense visual worlds where figures gather, transform, misbehave, adapt, remember, and refuse to stay still.
           </p>
         </div>
 
@@ -33,17 +33,18 @@ export function VisualArchiveHero() {
         <div className="col-span-1 md:col-span-6">
           <div className="relative aspect-[16/10] md:aspect-[4/3] overflow-hidden bg-paper-grey border border-stone-grey/10 group">
             <Image
-              src="/images/visual-archive/theatre-of-figures.jpeg"
-              alt="Theatre of Figures painting fragment, serving as the visual gateway to Nino D's archive"
+              src="/images/visual-archive/abcd.jpeg"
+              alt="A B C D painting fragment, serving as the visual gateway to Nino D's archive"
               fill
               priority
               className="object-cover transition-transform duration-[4000ms] cubic-bezier(0.25, 1, 0.5, 1) scale-100 group-hover:scale-[1.03] grayscale-[20%] group-hover:grayscale-0"
               sizes="(max-width: 768px) 100vw, 50vw"
+              loading="eager"
             />
             {/* Fine Art Overlay */}
             <div className="absolute inset-0 bg-ink-black/5 mix-blend-overlay pointer-events-none" />
             <div className="absolute bottom-4 right-4 bg-warm-ivory/90 backdrop-blur-sm border border-stone-grey/25 py-1 px-3 text-[9px] uppercase tracking-widest text-ink-black/80">
-              Fragment: Theatre of Figures
+              Fragment: A B C D
             </div>
           </div>
         </div>
@@ -64,7 +65,7 @@ export function VisualArchiveIntro() {
         </span>
         <div className="h-[1px] w-12 bg-deep-oxblood/35 mx-auto" />
         <h2 className="font-serif italic text-2xl md:text-3xl text-ink-black leading-relaxed max-w-2xl mx-auto font-light">
-          The Visual Archive begins with seven works selected by the artist as key entries into her practice.
+          The Visual Archive begins with eight works selected by the artist as key entries into her practice.
         </h2>
         <div className="space-y-6 text-xs text-stone-grey leading-relaxed max-w-xl mx-auto tracking-wide font-sans text-justify md:text-center">
           <p>
@@ -138,6 +139,11 @@ export function ArchiveWorkPlate({ entry }: ArchiveWorkPlateProps) {
     imageColClasses = "col-span-1 md:col-span-7";
     textColClasses = "col-span-1 md:col-span-5 space-y-6 md:pl-10";
     imageAspect = "aspect-[4/4]"; // Final dramatic square
+  } else if (order === 8) {
+    // 08 — closing archive plate
+    imageColClasses = "col-span-1 md:col-span-7 md:order-2";
+    textColClasses = "col-span-1 md:col-span-5 md:order-1 space-y-6 md:pr-10";
+    imageAspect = "aspect-[4/5]";
   }
 
   return (
@@ -227,7 +233,7 @@ export function ArchiveBridge() {
             Some fragments leave the painted surface.
           </p>
           <p className="text-xs text-stone-grey leading-relaxed tracking-wide font-sans max-w-xl">
-            Selected details from Nino Devdariani’s works are translated into limited silk editions — not as simple commercial reproductions, but as wearable fragments of a larger, living visual archive that dialogue directly with human movement.
+            Selected details from Nino Devdariani’s works may be translated into limited silk editions — not as reproductions, but as wearable fragments of a larger visual archive.
           </p>
           <div className="pt-4">
             <Link
@@ -268,7 +274,7 @@ interface InquiryCTAProps {
 export function InquiryCTA({ customTitle, customText, itemOfInterest }: InquiryCTAProps) {
   const baseTitle = customTitle || "Private Viewings & Inquiries";
   const baseText = customText || "For original works, commissions, archive access, collaborations, and collector inquiries, contact the studio directly.";
-  const acquireUrl = itemOfInterest 
+  const acquireUrl = itemOfInterest
     ? `/acquire?interest=Original%20Work&item=${encodeURIComponent(itemOfInterest)}`
     : "/acquire";
 
@@ -363,10 +369,9 @@ export function WorkMeta({ meta, tags }: WorkMetaProps) {
    ========================================== */
 interface SelectedDetailsProps {
   details: VisualArchiveEntry["details"];
-  mainImageSrc: string;
 }
 
-export function SelectedDetails({ details, mainImageSrc }: SelectedDetailsProps) {
+export function SelectedDetails({ details }: SelectedDetailsProps) {
   if (!details || details.length === 0) return null;
 
   return (
@@ -385,13 +390,12 @@ export function SelectedDetails({ details, mainImageSrc }: SelectedDetailsProps)
         <div className="space-y-16 md:space-y-24">
           {details.map((detail, index) => {
             const isEven = index % 2 === 0;
+            const hasImage = Boolean(detail.image);
 
-            // Since we don't have separate crop files, we use the main image beautifully focused, or direct representation
-            // On desktop: alternate image on left/text on right, and text on left/image on right.
             const textCol = (
               <div className="space-y-4 md:space-y-6">
                 <span className="font-serif text-[11px] text-deep-oxblood font-medium uppercase tracking-widest">
-                  Detail Closeup 0{index + 1}
+                  Selected Detail 0{index + 1}
                 </span>
                 <h4 className="font-serif text-xl md:text-2xl text-ink-black leading-tight">
                   {detail.title}
@@ -402,11 +406,11 @@ export function SelectedDetails({ details, mainImageSrc }: SelectedDetailsProps)
               </div>
             );
 
-            const imageCol = (
+            const imageCol = hasImage ? (
               <div className="relative aspect-[16/10] overflow-hidden bg-paper-grey border border-stone-grey/10 group">
                 <Image
-                  src={detail.image?.src || mainImageSrc}
-                  alt={detail.image?.alt || `Painting detail mockup representing ${detail.title}`}
+                  src={detail.image!.src}
+                  alt={detail.image!.alt}
                   fill
                   loading="lazy"
                   className="object-cover transition-transform duration-[3000ms] scale-100 group-hover:scale-[1.03]"
@@ -417,11 +421,22 @@ export function SelectedDetails({ details, mainImageSrc }: SelectedDetailsProps)
                   Detail View
                 </div>
               </div>
-            );
+            ) : null;
+
+            if (!hasImage) {
+              return (
+                <div
+                  key={detail.title}
+                  className="max-w-3xl border-t border-stone-grey/15 pt-8"
+                >
+                  {textCol}
+                </div>
+              );
+            }
 
             return (
-              <div 
-                key={detail.title} 
+              <div
+                key={detail.title}
                 className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-16 items-center"
               >
                 {/* Responsive desktop alternation */}
@@ -491,8 +506,8 @@ export function ArchiveRelations({ relations }: ArchiveRelationsProps) {
       <div className="space-y-4">
         {relations.map((rel) => (
           <div key={rel.slug} className="space-y-1 font-sans text-xs">
-            <Link 
-              href={`/visual-archive/${rel.slug}`} 
+            <Link
+              href={`/visual-archive/${rel.slug}`}
               className="font-serif text-sm text-ink-black hover:text-deep-oxblood font-medium underline underline-offset-4 decoration-stone-grey/30 hover:decoration-deep-oxblood transition-colors inline-block"
             >
               {rel.title}

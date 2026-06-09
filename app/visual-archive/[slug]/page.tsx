@@ -142,7 +142,7 @@ export default async function VisualArchiveEntryPage({ params }: PageProps) {
       </section>
 
       {/* 4. Zoom Close-up details */}
-      {details && <SelectedDetails details={details} mainImageSrc={image.src} />}
+      {details && <SelectedDetails details={details} />}
 
       {/* 5. Wearable Bridge Translation */}
       {wearableConnection && wearableConnection.enabled && (
