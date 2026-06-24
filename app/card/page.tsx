@@ -1,7 +1,15 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import LogoMark from "@/components/LogoMark";
 import SaveContactButton from "@/components/SaveContactButton";
+
+export const metadata: Metadata = {
+  title: "Contact Card",
+  description:
+    "Digital contact card for the Nino D studio — connect with the studio behind Nino Devdariani's paintings and wearable editions.",
+  alternates: { canonical: "/card" },
+};
 
 const phoneDisplay = "+995 574 40 60 61";
 const phoneHref = "+995574406061";
@@ -184,7 +192,7 @@ export default function CardPage() {
 
         <Link
           href="/visual-archive"
-          className="relative w-full aspect-[4/5] bg-paper-grey border border-stone-grey/15 p-2 bg-white shadow-sm overflow-hidden group block"
+          className="relative w-full aspect-[4/5] bg-paper-grey border border-stone-grey/15 p-2 bg-white shadow-sm overflow-hidden safari-clip-fix group block"
           aria-label="Open Visual Archive"
         >
           <Image
@@ -224,7 +232,7 @@ export default function CardPage() {
 
         <Link
           href="/wearable-archive"
-          className="relative w-full aspect-square bg-paper-grey border border-stone-grey/15 p-2 bg-white shadow-sm overflow-hidden group block"
+          className="relative w-full aspect-square bg-paper-grey border border-stone-grey/15 p-2 bg-white shadow-sm overflow-hidden safari-clip-fix group block"
           aria-label="Open Wearable Archive"
         >
           <Image

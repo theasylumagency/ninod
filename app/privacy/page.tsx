@@ -1,3 +1,12 @@
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Privacy Policy",
+  description:
+    "How Nino D handles collector data, inquiries, and confidentiality across the platform.",
+  alternates: { canonical: "/privacy" },
+};
+
 export default function PrivacyPage() {
   return (
     <div className="w-full flex flex-col bg-warm-ivory text-ink-black py-16 md:py-24 px-6 md:px-12 max-w-2xl mx-auto space-y-8 font-sans">

@@ -10,8 +10,9 @@ import {
 
 // SEO / Metadata
 export const metadata: Metadata = {
-  title: "Visual Archive — Nino D",
-  description: "Eight selected works from Nino Devdariani’s painted world — a visual archive of theatrical compositions, cultural fragments, textile memory, and private mythology.",
+  title: "Visual Archive",
+  description: "Selected works from Nino Devdariani’s painted world — a visual archive of theatrical compositions, cultural fragments, textile memory, and private mythology.",
+  alternates: { canonical: "/visual-archive" },
 };
 
 export default function VisualArchivePage() {

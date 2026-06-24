@@ -4,10 +4,13 @@ import { useState } from "react";
 import Link from "next/link";
 import LogoMark from "@/components/LogoMark";
 import { usePathname } from "next/navigation";
+import { useVault } from "@/components/VaultContext";
+import { EDITIONS_OPEN } from "@/data/launch";
 
 export default function SiteHeader() {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
+  const { count } = useVault();
 
   if (pathname === "/card") {
     return null;
@@ -55,6 +58,23 @@ export default function SiteHeader() {
               </Link>
             );
           })}
+
+          {/* The Vault — only once editions are open */}
+          {EDITIONS_OPEN && (
+            <Link
+              href="/vault"
+              className={`text-xs uppercase tracking-[0.2em] font-medium transition-colors relative py-1 flex items-center gap-1.5 hover:text-deep-oxblood ${
+                pathname.startsWith("/vault") ? "text-deep-oxblood" : "text-ink-black"
+              }`}
+            >
+              The Vault
+              {count > 0 && (
+                <span className="inline-flex items-center justify-center min-w-[18px] h-[18px] px-1 text-[9px] leading-none rounded-full bg-deep-oxblood text-warm-ivory">
+                  {count}
+                </span>
+              )}
+            </Link>
+          )}
         </nav>
 
         {/* Mobile Hamburger Button */}
@@ -104,6 +124,23 @@ export default function SiteHeader() {
               </Link>
             );
           })}
+
+          {EDITIONS_OPEN && (
+            <Link
+              href="/vault"
+              onClick={() => setIsOpen(false)}
+              className={`text-2xl uppercase tracking-[0.25em] font-serif transition-colors py-2 flex items-center gap-2 hover:text-deep-oxblood ${
+                pathname.startsWith("/vault") ? "text-deep-oxblood" : "text-ink-black"
+              }`}
+            >
+              The Vault
+              {count > 0 && (
+                <span className="inline-flex items-center justify-center min-w-[22px] h-[22px] px-1.5 text-xs leading-none rounded-full bg-deep-oxblood text-warm-ivory">
+                  {count}
+                </span>
+              )}
+            </Link>
+          )}
         </nav>
       </div>
     </header>

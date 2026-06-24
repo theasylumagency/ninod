@@ -31,13 +31,13 @@ export function VisualArchiveHero() {
 
         {/* Right Cropped Artwork Detail (LCP Candidate) */}
         <div className="col-span-1 md:col-span-6">
-          <div className="relative aspect-[16/10] md:aspect-[4/3] overflow-hidden bg-paper-grey border border-stone-grey/10 group">
+          <div className="relative w-full aspect-[16/10] md:aspect-[4/3] overflow-hidden safari-clip-fix bg-paper-grey border border-stone-grey/10 group">
             <Image
               src="/images/visual-archive/abcd.jpeg"
               alt="A B C D painting fragment, serving as the visual gateway to Nino D's archive"
               fill
               priority
-              className="object-cover transition-transform duration-[4000ms] cubic-bezier(0.25, 1, 0.5, 1) scale-100 group-hover:scale-[1.03] grayscale-[20%] group-hover:grayscale-0"
+              className="object-cover transition-transform duration-[4000ms] ease-[cubic-bezier(0.25,1,0.5,1)] scale-100 group-hover:scale-[1.03] grayscale-[20%] group-hover:grayscale-0"
               sizes="(max-width: 768px) 100vw, 50vw"
               loading="eager"
             />
@@ -152,7 +152,7 @@ export function ArchiveWorkPlate({ entry }: ArchiveWorkPlateProps) {
         {/* Artwork Image Frame */}
         <div className={imageColClasses}>
           <Link href={`/visual-archive/${slug}`} className="block group">
-            <div className={`relative ${imageAspect} overflow-hidden bg-paper-grey border border-stone-grey/10 transition-colors duration-500 hover:border-deep-oxblood/35`}>
+            <div className={`relative w-full ${imageAspect} overflow-hidden safari-clip-fix bg-paper-grey border border-stone-grey/10 transition-colors duration-500 hover:border-deep-oxblood/35`}>
               <Image
                 src={image.src}
                 alt={image.alt}
@@ -246,7 +246,7 @@ export function ArchiveBridge() {
         </div>
 
         {/* Artistic Still Column */}
-        <div className="col-span-1 md:col-span-5 relative aspect-[4/5] overflow-hidden bg-warm-ivory border border-stone-grey/15 group">
+        <div className="col-span-1 md:col-span-5 relative w-full aspect-[4/5] overflow-hidden safari-clip-fix bg-warm-ivory border border-stone-grey/15 group">
           <Image
             src="/images/homepage/hero/hero-right.png"
             alt="Wearable silk carré draped beautifully in motion"
@@ -407,7 +407,7 @@ export function SelectedDetails({ details }: SelectedDetailsProps) {
             );
 
             const imageCol = hasImage ? (
-              <div className="relative aspect-[16/10] overflow-hidden bg-paper-grey border border-stone-grey/10 group">
+              <div className="relative w-full aspect-[16/10] overflow-hidden safari-clip-fix bg-paper-grey border border-stone-grey/10 group">
                 <Image
                   src={detail.image!.src}
                   alt={detail.image!.alt}

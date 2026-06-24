@@ -1,3 +1,12 @@
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Terms of Service",
+  description:
+    "Terms governing the use of the Nino D platform, original artworks, and wearable editions by Nino Devdariani.",
+  alternates: { canonical: "/terms" },
+};
+
 export default function TermsPage() {
   return (
     <div className="w-full flex flex-col bg-warm-ivory text-ink-black py-16 md:py-24 px-6 md:px-12 max-w-2xl mx-auto space-y-8 font-sans">

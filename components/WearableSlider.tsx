@@ -61,7 +61,7 @@ export default function WearableSlider() {
       aria-label="Wearable Archive Gallery"
     >
       {/* Aspect Ratio 4:5 Box */}
-      <div className="relative w-full aspect-[4/5] overflow-hidden bg-paper-grey group">
+      <div className="relative w-full aspect-[4/5] overflow-hidden safari-clip-fix bg-paper-grey group">
         {wearableSliderSlides.map((slide, index) => {
           const isActive = index === currentIdx;
           return (

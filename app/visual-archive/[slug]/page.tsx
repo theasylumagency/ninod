@@ -32,9 +32,26 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     };
   }
 
+  const canonical = `/visual-archive/${entry.slug}`;
+  const description = `${entry.title} (${entry.subtitle}). Original work by Nino Devdariani from the Nino D Visual Archive.`;
+
   return {
-    title: `${entry.title} — Visual Archive — Nino D`,
-    description: `${entry.title} (${entry.subtitle}). Nino Devdariani's painted world archive details.`,
+    title: `${entry.title} — Visual Archive`,
+    description,
+    alternates: { canonical },
+    openGraph: {
+      type: "article",
+      title: `${entry.title} — Visual Archive — Nino D`,
+      description,
+      url: canonical,
+      images: [{ url: entry.image.src, alt: entry.image.alt }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${entry.title} — Visual Archive — Nino D`,
+      description,
+      images: [entry.image.src],
+    },
   };
 }
 
@@ -63,9 +80,58 @@ export default async function VisualArchiveEntryPage({ params }: PageProps) {
   const numString = order.toString().padStart(2, "0");
   const acquireUrl = `/acquire?interest=Original%20Work&item=${encodeURIComponent(title)}`;
 
+  const siteUrl = "https://ninod.space";
+  const pageUrl = `${siteUrl}/visual-archive/${slug}`;
+  const isPlaceholder = (v?: string) => !v || /to be confirmed/i.test(v);
+
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "VisualArtwork",
+        "@id": `${pageUrl}#artwork`,
+        name: title,
+        url: pageUrl,
+        image: `${siteUrl}${image.src}`,
+        description: archiveNote,
+        creator: {
+          "@type": "Person",
+          name: meta?.artist || "Nino Devdariani",
+          url: `${siteUrl}/about`,
+        },
+        ...(isPlaceholder(meta?.medium) ? {} : { artMedium: meta!.medium }),
+        ...(isPlaceholder(meta?.year) ? {} : { dateCreated: meta!.year }),
+        ...(isPlaceholder(meta?.dimensions) ? {} : { artworkSurface: meta!.dimensions }),
+        ...(tags && tags.length ? { keywords: tags.join(", ") } : {}),
+        isPartOf: {
+          "@type": "Collection",
+          name: "Nino D Visual Archive",
+          url: `${siteUrl}/visual-archive`,
+        },
+      },
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Home", item: siteUrl },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: "Visual Archive",
+            item: `${siteUrl}/visual-archive`,
+          },
+          { "@type": "ListItem", position: 3, name: title, item: pageUrl },
+        ],
+      },
+    ],
+  };
+
   return (
     <div className="w-full flex flex-col bg-warm-ivory text-ink-black min-h-screen overflow-x-hidden antialiasedScroll">
-      
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+
       {/* 1. Header Section (Title + Subtitle + Micro Info) */}
       <section className="w-full pt-12 md:pt-20 pb-8 md:pb-12 bg-warm-ivory">
         <div className="mx-auto max-w-7xl px-6 md:px-12 space-y-6">
@@ -171,7 +237,7 @@ export default async function VisualArchiveEntryPage({ params }: PageProps) {
             </div>
             
             {/* Visual Column */}
-            <div className="col-span-1 md:col-span-4 relative aspect-square overflow-hidden bg-warm-ivory border border-stone-grey/15 group">
+            <div className="col-span-1 md:col-span-4 relative w-full aspect-square overflow-hidden safari-clip-fix bg-warm-ivory border border-stone-grey/15 group">
               <Image
                 src={image.src}
                 alt={`Wearable silk carré mockup detail from ${title}`}

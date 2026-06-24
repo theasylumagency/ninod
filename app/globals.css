@@ -33,27 +33,53 @@ body {
 @keyframes archive-reveal {
   from {
     opacity: 0;
+    -webkit-transform: translateY(14px);
     transform: translateY(14px);
+    -webkit-clip-path: inset(0 0 8% 0);
     clip-path: inset(0 0 8% 0);
   }
   to {
     opacity: 1;
+    -webkit-transform: translateY(0);
     transform: translateY(0);
+    -webkit-clip-path: inset(0 0 0 0);
     clip-path: inset(0 0 0 0);
   }
 }
 
 .archive-reveal {
+  -webkit-animation: archive-reveal 800ms ease both;
   animation: archive-reveal 800ms ease both;
+  will-change: transform, opacity, clip-path;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
 }
 
 .archive-reveal-slow {
   animation-duration: 1100ms;
 }
 
+/* Fix Safari bleed/overflow issue when child element scales inside overflow-hidden parent */
+.safari-clip-fix {
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+  will-change: transform;
+}
+
+/* Legacy WebKit backdrop-filter blur fallback */
+.backdrop-blur-sm {
+  -webkit-backdrop-filter: blur(4px) !important;
+}
+.backdrop-blur-md {
+  -webkit-backdrop-filter: blur(12px) !important;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .archive-reveal,
   .archive-reveal-slow {
     animation: none;
+    -webkit-animation: none;
   }
 }

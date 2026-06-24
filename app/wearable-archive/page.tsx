@@ -1,5 +1,17 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
+import ClaimButton from "@/components/ClaimButton";
+import { formatEur } from "@/lib/format";
+import WaitlistSection from "@/components/WaitlistSection";
+import { EDITIONS_OPEN } from "@/data/launch";
+
+export const metadata: Metadata = {
+  title: "Wearable Archive — Limited Silk Editions",
+  description:
+    "The Nino D Wearable Archive translates fragments of Nino Devdariani's original paintings into limited-edition silk pieces, made to be worn and collected.",
+  alternates: { canonical: "/wearable-archive" },
+};
 
 interface EditionItem {
   id: string;
@@ -10,6 +22,7 @@ interface EditionItem {
   material: string;
   size: string;
   editionSize: string;
+  price: number;
   paintingImage: string;
   scarfImage: string;
 }
@@ -23,7 +36,8 @@ const editions: EditionItem[] = [
     year: "2026",
     material: "100% Heavy Silk Twill, hand-rolled edges",
     size: "90 × 90 cm",
-    editionSize: "Limited edition of 50, numbered with certificate",
+    editionSize: "Limited edition of 100, numbered with certificate",
+    price: 450,
     paintingImage: "/art/alter_ego.jpg",
     scarfImage: "/images/wearable-archive/wearable1.png", // Sculptural concrete scarf
   },
@@ -35,7 +49,8 @@ const editions: EditionItem[] = [
     year: "2025",
     material: "100% Heavy Silk Twill, hand-rolled edges",
     size: "90 × 90 cm",
-    editionSize: "Limited edition of 50, numbered with certificate",
+    editionSize: "Limited edition of 100, numbered with certificate",
+    price: 450,
     paintingImage: "/art/dementia.jpg",
     scarfImage: "/scarfs/dementia.png",
   },
@@ -47,7 +62,8 @@ const editions: EditionItem[] = [
     year: "2026",
     material: "100% Heavy Silk Twill, hand-rolled edges",
     size: "90 × 90 cm",
-    editionSize: "Limited edition of 50, numbered with certificate",
+    editionSize: "Limited edition of 100, numbered with certificate",
+    price: 450,
     paintingImage: "/art/bekas_dream.jpg",
     scarfImage: "/scarfs/bekas_dream.png",
   },
@@ -68,6 +84,7 @@ export default function WearableArchivePage() {
             muted
             loop
             playsInline
+            poster="/images/wearable-archive/wearable1.png"
             className="w-full h-full object-cover"
           >
             <source src="/videos/ninod-wearable.mp4" type="video/mp4" />
@@ -130,12 +147,12 @@ export default function WearableArchivePage() {
                   isEven ? "md:order-2" : "md:order-1"
                 }`}
               >
-                <div className="relative aspect-[3/4] w-full max-w-sm mx-auto overflow-hidden bg-paper-grey border border-stone-grey/10 shadow-sm group">
+                <div className="relative aspect-[3/4] w-full max-w-sm mx-auto overflow-hidden safari-clip-fix bg-paper-grey border border-stone-grey/10 shadow-sm group">
                   <Image
                     src={item.paintingImage}
                     alt={`Original painting source for ${item.title}`}
                     fill
-                    className="object-cover transition-transform duration-[2000ms] scale-100 group-hover:scale-102"
+                    className="object-cover transition-transform duration-[2000ms] scale-100 group-hover:scale-[1.02]"
                     sizes="(max-width: 768px) 100vw, 35vw"
                   />
                   <div className="absolute bottom-4 left-4 z-20 bg-warm-ivory/80 backdrop-blur-sm border border-stone-grey/25 py-1 px-3 text-[8px] uppercase tracking-widest text-ink-black">
@@ -151,12 +168,12 @@ export default function WearableArchivePage() {
                 }`}
               >
                 {/* Scarf Image */}
-                <div className="relative aspect-[4/5] w-full overflow-hidden bg-paper-grey border border-stone-grey/10 shadow-sm group">
+                <div className="relative aspect-[4/5] w-full overflow-hidden safari-clip-fix bg-paper-grey border border-stone-grey/10 shadow-sm group">
                   <Image
                     src={item.scarfImage}
                     alt={`Sculptural silk Carré edition of ${item.title}`}
                     fill
-                    className="object-cover transition-transform duration-[2000ms] scale-100 group-hover:scale-102"
+                    className="object-cover transition-transform duration-[2000ms] scale-100 group-hover:scale-[1.02]"
                     sizes="(max-width: 768px) 100vw, 50vw"
                   />
                   <div className="absolute top-6 left-6 z-20 bg-ink-black text-warm-ivory py-1.5 px-4 text-[9px] uppercase tracking-[0.25em] font-medium">
@@ -178,18 +195,25 @@ export default function WearableArchivePage() {
                     <span className="text-[9px] text-stone-grey/65 uppercase font-medium">Material</span>
                     <span className="text-ink-black font-medium">{item.material}</span>
                   </div>
-                  <div className="flex justify-between pb-2">
+                  <div className="flex justify-between border-b border-stone-grey/10 pb-2">
                     <span className="text-[9px] text-stone-grey/65 uppercase font-medium">Availability</span>
                     <span className="text-deep-oxblood font-semibold">{item.editionSize}</span>
                   </div>
-                  
+                  <div className="flex justify-between pb-2">
+                    <span className="text-[9px] text-stone-grey/65 uppercase font-medium">Price</span>
+                    <span className="text-ink-black font-semibold tracking-wider">{formatEur(item.price)}</span>
+                  </div>
+
                   <div className="pt-4">
-                    <Link 
-                      href={`/acquire?interest=The%20Wearable%20Archive&item=${encodeURIComponent("Edition " + item.archiveNo + " - " + item.title)}`} 
-                      className="inline-block border border-ink-black text-ink-black text-[10px] font-medium tracking-[0.2em] uppercase py-3.5 px-8 hover:bg-ink-black hover:text-warm-ivory transition-colors duration-300 w-fit"
-                    >
-                      INQUIRE AVAILABILITY
-                    </Link>
+                    <ClaimButton
+                      item={{
+                        id: item.id,
+                        archiveNo: item.archiveNo,
+                        title: item.title,
+                        image: item.scarfImage,
+                        price: item.price,
+                      }}
+                    />
                   </div>
                 </div>
               </div>
@@ -216,7 +240,7 @@ export default function WearableArchivePage() {
               Crafted for permanence.
             </h3>
             <p className="text-xs text-stone-grey leading-relaxed tracking-wide">
-              Every piece from the archive is finished with precise hand-rolled edges to preserve the structural integrity of the silk. Each edition arrives with a strictly numbered, signed Certificate of Authenticity. An archival seal guarantees its collector value and aesthetic pedigree.
+              Every piece from the archive is finished with precise hand-rolled edges to preserve the structural integrity of the silk. Each edition arrives with a strictly numbered, signed Certificate of Authenticity. An archival seal records its provenance and its place within a permanently closed edition.
             </p>
           </div>
 
@@ -249,29 +273,44 @@ export default function WearableArchivePage() {
       </section>
 
       {/* ==========================================
-          SECTION 05 - THE REQUEST (Inquiry CTA)
+          SECTION 05 - CLOSING (phase-aware)
           ========================================== */}
-      <section className="w-full py-24 md:py-32 px-6 bg-paper-grey/35 border-t border-stone-grey/15 text-center flex flex-col items-center justify-center space-y-6">
-        <div className="flex items-center gap-4">
-          <span className="font-serif text-deep-oxblood text-sm font-semibold tracking-widest">05</span>
-          <span className="h-[1px] w-12 bg-stone-grey/30" />
-          <span className="text-[10px] uppercase tracking-[0.25em] text-stone-grey font-medium">Acquisition</span>
-        </div>
-        <h3 className="font-serif text-2xl md:text-3xl lg:text-4xl text-ink-black tracking-wide">
-          Acquire an Edition.
-        </h3>
-        <p className="text-xs text-stone-grey leading-relaxed tracking-wide max-w-sm">
-          The Wearable Archive is available strictly by private inquiry to ensure the integrity of the editions.
-        </p>
-        <div className="pt-4">
-          <Link
-            href="/acquire?interest=The%20Wearable%20Archive"
-            className="inline-block bg-ink-black text-warm-ivory text-[10px] uppercase tracking-[0.25em] font-medium py-4 px-10 hover:bg-deep-oxblood transition-colors duration-300 shadow-sm"
-          >
-            Begin an Inquiry
-          </Link>
-        </div>
-      </section>
+      {EDITIONS_OPEN ? (
+        <section className="w-full py-24 md:py-32 px-6 bg-paper-grey/35 border-t border-stone-grey/15 text-center flex flex-col items-center justify-center space-y-6">
+          <div className="flex items-center gap-4">
+            <span className="font-serif text-deep-oxblood text-sm font-semibold tracking-widest">05</span>
+            <span className="h-[1px] w-12 bg-stone-grey/30" />
+            <span className="text-[10px] uppercase tracking-[0.25em] text-stone-grey font-medium">Acquisition</span>
+          </div>
+          <h3 className="font-serif text-2xl md:text-3xl lg:text-4xl text-ink-black tracking-wide">
+            Claim an Edition.
+          </h3>
+          <p className="text-xs text-stone-grey leading-relaxed tracking-wide max-w-sm">
+            Each edition is claimed directly and held in The Vault until you secure it. Once an edition of 100 is closed, it is never reopened.
+          </p>
+          <div className="pt-4 flex flex-col items-center gap-4">
+            <Link
+              href="/vault"
+              className="inline-block bg-ink-black text-warm-ivory text-[10px] uppercase tracking-[0.25em] font-medium py-4 px-10 hover:bg-deep-oxblood transition-colors duration-300 shadow-sm"
+            >
+              Enter The Vault
+            </Link>
+            <Link
+              href="/acquire?interest=The%20Wearable%20Archive"
+              className="text-[10px] uppercase tracking-[0.2em] text-stone-grey hover:text-deep-oxblood transition-colors"
+            >
+              Or inquire about collaborations &amp; commissions
+            </Link>
+          </div>
+        </section>
+      ) : (
+        <WaitlistSection
+          kicker="The Wearable Archive"
+          headline="Wear a fragment of the world."
+          subcopy="Each edition is a numbered piece from a permanently closed run of 100. Join the list for first access before Edition 01 opens to the public."
+          source="wearable-archive"
+        />
+      )}
 
     </div>
   );

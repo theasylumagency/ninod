@@ -1,27 +1,16 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
 import LogoMark from "@/components/LogoMark";
 import { usePathname } from "next/navigation";
+import WaitlistForm from "@/components/WaitlistForm";
 
 export default function SiteFooter() {
   const pathname = usePathname();
-  const [email, setEmail] = useState("");
-  const [subscribed, setSubscribed] = useState(false);
 
   if (pathname === "/card") {
     return null;
   }
-
-  const handleSubscribe = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (email.trim()) {
-      setSubscribed(true);
-      setEmail("");
-      setTimeout(() => setSubscribed(false), 5000);
-    }
-  };
 
   return (
     <footer className="w-full bg-paper-grey text-ink-black py-16 px-6 md:px-12 border-t border-stone-grey/20">
@@ -54,40 +43,22 @@ export default function SiteFooter() {
             <Link href="/about" className="text-xs uppercase tracking-[0.2em] hover:text-deep-oxblood transition-colors w-fit">
               About
             </Link>
+            <Link href="/studio" className="text-xs uppercase tracking-[0.2em] hover:text-deep-oxblood transition-colors w-fit">
+              Studio
+            </Link>
             <Link href="/acquire" className="text-xs uppercase tracking-[0.2em] hover:text-deep-oxblood transition-colors w-fit">
               Inquire
             </Link>
           </nav>
         </div>
 
-        {/* Newsletter Column */}
+        {/* Waitlist Column */}
         <div className="col-span-1 md:col-span-3 flex flex-col space-y-4">
-          <h4 className="text-xs uppercase tracking-[0.25em] font-medium text-stone-grey">Join the Archive</h4>
+          <h4 className="text-xs uppercase tracking-[0.25em] font-medium text-stone-grey">Join the list</h4>
           <p className="text-xs text-stone-grey leading-relaxed">
-            Be the first to know about new works, editions, and stories from the studio.
+            First access to Edition 01 before it opens publicly. One hundred numbered pieces, opened once, then closed forever.
           </p>
-          {subscribed ? (
-            <p className="text-xs text-deep-oxblood font-serif italic">You have successfully joined the archive.</p>
-          ) : (
-            <form onSubmit={handleSubscribe} className="flex flex-col space-y-2">
-              <div className="flex border-b border-ink-black/20 focus-within:border-deep-oxblood transition-colors py-1">
-                <input
-                  type="email"
-                  placeholder="EMAIL ADDRESS"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                  className="bg-transparent border-none text-xs uppercase tracking-wider focus:outline-none w-full placeholder:text-stone-grey/70"
-                />
-                <button
-                  type="submit"
-                  className="text-xs uppercase tracking-[0.2em] font-medium hover:text-deep-oxblood transition-colors"
-                >
-                  Join
-                </button>
-              </div>
-            </form>
-          )}
+          <WaitlistForm source="footer" />
         </div>
 
         {/* Right Column - Social & Legal */}
@@ -100,7 +71,7 @@ export default function SiteFooter() {
             <a href="https://pinterest.com" target="_blank" rel="noopener noreferrer" className="text-xs uppercase tracking-[0.2em] hover:text-deep-oxblood transition-colors">
               Pinterest
             </a>
-            <a href="mailto:studio@ninod.com" className="text-xs uppercase tracking-[0.2em] hover:text-deep-oxblood transition-colors">
+            <a href="mailto:studio@ninod.space" className="text-xs uppercase tracking-[0.2em] hover:text-deep-oxblood transition-colors">
               Email
             </a>
             <div className="pt-4 flex flex-col space-y-2 md:items-end border-t border-stone-grey/10 w-full md:w-auto">

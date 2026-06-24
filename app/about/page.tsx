@@ -2,11 +2,13 @@ import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import WaitlistSection from "@/components/WaitlistSection";
 
 export const metadata: Metadata = {
-  title: "Nino Devdariani - The Artist Behind Nino D",
+  title: { absolute: "Nino Devdariani — The Artist Behind Nino D" },
   description:
     "The visual world behind Nino D: Nino Devdariani's paintings, archive, and limited silk editions.",
+  alternates: { canonical: "/about" },
 };
 
 const microWorldImages = [
@@ -141,7 +143,7 @@ export default function AboutPage() {
       <section className="w-full border-b border-stone-grey/15 px-6 py-20 md:px-12 md:py-32">
         <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-12 md:grid-cols-12 md:gap-16">
           <div className="archive-reveal col-span-1 md:col-span-6">
-            <div className="relative aspect-[5/4] overflow-hidden bg-paper-grey">
+            <div className="relative w-full aspect-[5/4] overflow-hidden bg-paper-grey">
               <Image
                 src="/images/about/color-against-darkness-detail.jpg"
                 alt="Bright and crowded painting detail by Nino Devdariani"
@@ -202,7 +204,7 @@ export default function AboutPage() {
             {microWorldImages.map((image, index) => (
               <figure
                 key={image.src}
-                className={`relative overflow-hidden bg-paper-grey ${
+                className={`relative w-full overflow-hidden safari-clip-fix bg-paper-grey ${
                   index === 1
                     ? "aspect-[4/5] md:col-span-5 md:mt-12"
                     : "aspect-square md:col-span-3"
@@ -250,7 +252,7 @@ export default function AboutPage() {
             </div>
           </div>
           <div className="archive-reveal archive-reveal-slow col-span-1 md:col-span-7">
-            <div className="relative aspect-[6/5] overflow-hidden bg-paper-grey">
+            <div className="relative w-full aspect-[6/5] overflow-hidden bg-paper-grey">
               <Image
                 src="/images/about/my-generation-observer.jpg"
                 alt="My Generation artwork crop showing Nino as observer"
@@ -300,6 +302,7 @@ export default function AboutPage() {
                 rules could contain it.
               </p>
             </div>
+            <TextLink href="/studio">Visit the Studio</TextLink>
           </div>
         </div>
       </section>
@@ -419,26 +422,12 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="w-full px-6 py-24 text-center md:px-12 md:py-32">
-        <div className="archive-reveal mx-auto flex max-w-2xl flex-col items-center space-y-6">
-          <SectionKicker number="09" label="Inquiry" />
-          <h2 className="font-serif text-3xl leading-tight tracking-wide text-ink-black md:text-5xl">
-            Acquire a work. Begin an inquiry.
-          </h2>
-          <p className="max-w-md text-sm leading-relaxed tracking-wide text-stone-grey">
-            For original works, wearable editions, collaborations, and gallery
-            inquiries, contact the studio directly.
-          </p>
-          <div className="pt-3">
-            <Link
-              href="/acquire"
-              className="inline-block bg-ink-black px-10 py-4 text-[10px] font-medium uppercase tracking-[0.25em] text-warm-ivory shadow-sm transition-colors duration-300 hover:bg-deep-oxblood"
-            >
-              Begin an Inquiry
-            </Link>
-          </div>
-        </div>
-      </section>
+      <WaitlistSection
+        kicker="Edition 01"
+        headline="You have seen the world. Now wear a fragment of it."
+        subcopy="Selected works become limited silk editions — one hundred numbered pieces, opened once, then closed forever. Edition 01 opens in September. Join the list for first access."
+        source="about"
+      />
     </div>
   );
 }
