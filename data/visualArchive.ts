@@ -58,10 +58,10 @@ export const visualArchiveEntries: VisualArchiveEntry[] = [
     slug: "a-b-c-d",
     title: "A B C D",
     subtitle:
-      "A childhood world of color, first steps, first signs, and the alphabet of entering life.",
+      "A childhood world of color, first signs, and the alphabet of entering life.",
     archiveNote:
       "A B C D opens the archive with the logic of beginnings. The painting imagines childhood as a bright, crowded, unstable world where everything is being learned for the first time: signs, bodies, gestures, rules, mistakes, beauty, fear, and play. The alphabet becomes more than letters; it becomes the first structure through which life is entered step by step.",
-    tags: ["Childhood", "Alphabet", "Beginning", "Color", "Learning", "First World"],
+    tags: ["Childhood", "Alphabet", "Beginning", "Color", "Learning"],
     image: {
       src: "/images/visual-archive/abcd.jpeg",
       alt: "A B C D — painting from Nino Devdariani's Visual Archive",
@@ -105,8 +105,8 @@ export const visualArchiveEntries: VisualArchiveEntry[] = [
     subtitle:
       "A strange procession of figures preparing paintings for a great exhibition.",
     archiveNote:
-      "Exhibition turns the act of showing art into theatre. Japanese figures prepare for a large exhibition, carrying works toward their destination while the boundary between painting, frame, and character begins to collapse. Some images appear to step out of their frames; others trap their figures inside them. The result is an exhibition before the exhibition — a world where artworks are already alive before they reach the wall.",
-    tags: ["Exhibition", "Frame", "Japanese Figures", "Procession", "Artworks Escaping", "Theatre"],
+      "Exhibition turns the act of showing art into theatre. Figures prepare for a large exhibition, carrying works toward their destination while the boundary between painting, frame, and character begins to collapse. Some images appear to step out of their frames; others trap their figures inside them. The result is an exhibition before the exhibition — a world where artworks are already alive before they reach the wall.",
+    tags: ["Exhibition", "Frame", "Procession", "Theatre", "Artworks Escaping"],
     image: {
       src: "/images/visual-archive/exhibition.jpeg",
       alt: "Exhibition — painting from Nino Devdariani's Visual Archive",
@@ -197,8 +197,8 @@ export const visualArchiveEntries: VisualArchiveEntry[] = [
     title: "AI",
     subtitle: "An old society watches as a new civilization descends from above.",
     archiveNote:
-      "AI stages a collision between ancient society and the arrival of a new civilizational force. Below, a community from an older, almost biblical world looks upward; above them, something new descends — technological, distant, powerful, and difficult to name. The painting does not treat artificial intelligence as a clean futuristic symbol. Instead, it turns AI into an event witnessed by people who belong to another order of time.",
-    tags: ["Artificial Intelligence", "Civilization", "Old World", "Descent", "Witnesses", "Future"],
+      "AI stages a collision between an ancient society and the arrival of a new civilizational force. Below, a community from an older, almost biblical world looks upward; above them, something new descends — technological, distant, powerful, and difficult to name. The painting does not treat artificial intelligence as a clean futuristic symbol. Instead, it turns AI into an event witnessed by people who belong to another order of time.",
+    tags: ["Artificial Intelligence", "Civilization", "Old World", "Descent", "Witnesses"],
     image: {
       src: "/images/visual-archive/ai.jpeg",
       alt: "AI — painting from Nino Devdariani's Visual Archive",
@@ -290,7 +290,7 @@ export const visualArchiveEntries: VisualArchiveEntry[] = [
     subtitle: "Paintings transferred onto clothing and worn by faceless models.",
     archiveNote:
       "Textile is the clearest bridge between the Visual Archive and the Wearable Archive. Here, paintings have already left the wall and moved onto clothing. The models are faceless, which shifts attention away from individual portraiture and toward surface, fabric, body, and transformation. The work does not simply decorate garments; it imagines clothing as a carrier of painted worlds.",
-    tags: ["Textile", "Wearable Archive", "Garment", "Faceless Models", "Surface", "Transformation"],
+    tags: ["Textile", "Wearable Archive", "Garment", "Faceless Models", "Transformation"],
     image: {
       src: "/images/visual-archive/textile.jpeg",
       alt: "Textile — painting from Nino Devdariani's Visual Archive",
@@ -335,7 +335,7 @@ export const visualArchiveEntries: VisualArchiveEntry[] = [
       "A world of beings able to live anywhere, adapt to everything, and survive across incompatible conditions.",
     archiveNote:
       "Fishes is a painting about adaptation. Its figures seem able to survive in more than one world — on land, in water, inside costume, inside pattern, inside social pressure. The work treats adaptability not only as strength, but also as a strange condition of modern life: the ability to live anywhere may also mean the need to belong nowhere completely.",
-    tags: ["Adaptation", "Survival", "Fish", "Hybrid Life", "Condition", "Belonging"],
+    tags: ["Adaptation", "Survival", "Fish", "Hybrid Life", "Belonging"],
     image: {
       src: "/images/visual-archive/fishes.jpeg",
       alt: "Fishes — painting from Nino Devdariani's Visual Archive",

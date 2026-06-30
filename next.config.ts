@@ -23,6 +23,11 @@ const nextConfig: NextConfig = {
         destination: "/wearable-archive",
         permanent: true,
       },
+      {
+        source: "/inquire",
+        destination: "/acquire",
+        permanent: false,
+      },
     ];
   },
 };

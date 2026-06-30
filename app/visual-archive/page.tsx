@@ -4,14 +4,15 @@ import {
   VisualArchiveHero,
   VisualArchiveIntro,
   ArchiveWorkPlate,
+  CinematicInterlude,
   ArchiveBridge,
   InquiryCTA,
 } from "@/components/VisualArchive";
 
 // SEO / Metadata
 export const metadata: Metadata = {
-  title: "Visual Archive",
-  description: "Selected works from Nino Devdariani’s painted world — a visual archive of theatrical compositions, cultural fragments, textile memory, and private mythology.",
+  title: "Visual Archive — Nino D",
+  description: "Eight selected works from Nino Devdariani’s painted world — a living visual archive of figures, memories, symbols, textile, music, identity, adaptation, and private mythology.",
   alternates: { canonical: "/visual-archive" },
 };
 
@@ -35,7 +36,7 @@ export default function VisualArchivePage() {
       <VisualArchiveIntro />
 
       {/* 3. Eight Selected Works Section */}
-      <section className="w-full flex flex-col">
+      <section id="archive-selection" className="w-full flex flex-col scroll-mt-24">
         {/* Title Header */}
         <div className="w-full py-12 md:py-16 bg-warm-ivory border-b border-stone-grey/15 text-center md:text-left">
           <div className="mx-auto max-w-7xl px-6 md:px-12">
@@ -44,8 +45,11 @@ export default function VisualArchivePage() {
               <span className="h-[1px] w-8 bg-stone-grey/25" />
             </div>
             <h2 className="font-serif text-3xl md:text-4xl uppercase tracking-wider text-ink-black leading-tight mt-3">
-              Selected Works
+              Catalogue Plates
             </h2>
+            <p className="font-sans text-xs text-stone-grey leading-relaxed tracking-wide mt-4 max-w-2xl">
+              Eight works selected as entries into Nino Devdariani&apos;s visual world — not a complete catalogue, but a living index of recurring figures, symbols, memories, materials, and states of mind.
+            </p>
           </div>
         </div>
 
@@ -76,11 +80,14 @@ export default function VisualArchivePage() {
         {entry8 && <ArchiveWorkPlate entry={entry8} />}
       </section>
 
-      {/* 4. Bridge Section */}
+      {/* 4. Cinematic Interlude — the painting leaves the wall */}
+      <CinematicInterlude />
+
+      {/* 5. Bridge Section — Visual Archive to Wearable Archive */}
       <ArchiveBridge />
 
-      {/* 5. Private Viewings & Inquiries */}
-      <InquiryCTA />
+      {/* 6. Private Viewings & Inquiries */}
+      <InquiryCTA ctaHref="/inquire" />
 
     </div>
   );

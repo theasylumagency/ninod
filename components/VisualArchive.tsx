@@ -2,52 +2,167 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { type VisualArchiveEntry } from "@/data/visualArchive";
+import { useEffect, useRef, useState } from "react";
+import { visualArchiveEntries, type VisualArchiveEntry } from "@/data/visualArchive";
 
 /* ==========================================
-   1. VisualArchiveHero
+   1. VisualArchiveHero — The Catalogue Vitrine
    ========================================== */
 export function VisualArchiveHero() {
+  const [active, setActive] = useState(0);
+  const entry = visualArchiveEntries[active];
+  const plateNo = String(active + 1).padStart(2, "0");
+  const total = String(visualArchiveEntries.length).padStart(2, "0");
+
   return (
-    <section className="w-full bg-warm-ivory border-b border-stone-grey/25 py-12 md:py-20 lg:py-24">
-      <div className="mx-auto max-w-7xl px-6 md:px-12 grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-center">
-        {/* Left Editorial Text Column */}
-        <div className="col-span-1 md:col-span-6 space-y-6 md:pr-6">
-          <div className="flex items-center gap-3">
-            <span className="font-serif text-[11px] uppercase tracking-[0.25em] text-deep-oxblood font-semibold">00 / Catalog</span>
-            <span className="h-[1px] w-10 bg-stone-grey/30" />
-            <span className="text-[10px] uppercase tracking-[0.2em] text-stone-grey font-medium">Nino D Studio</span>
-          </div>
-          <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl tracking-wide text-ink-black uppercase leading-[1.05]">
-            Visual <br className="hidden lg:inline" />Archive
-          </h1>
-          <p className="text-xs text-stone-grey uppercase tracking-[0.15em] font-medium border-t border-stone-grey/15 pt-4">
-            Eight selected works from Nino Devdariani’s painted world.
-          </p>
-          <p className="text-sm font-cormorant text-ink-black/80 leading-relaxed max-w-lg font-light pt-2">
-            These paintings are not quiet surfaces. They are theatres, archives, costumes, memories, jokes, wounds, coded histories, and private mythologies — dense visual worlds where figures gather, transform, misbehave, adapt, remember, and refuse to stay still.
-          </p>
+    <section className="w-full bg-warm-ivory border-b border-stone-grey/20 grid grid-cols-1 lg:grid-cols-12 lg:min-h-[82vh]">
+
+      {/* ---------- LEFT RAIL — whisper editorial ---------- */}
+      <div className="lg:col-span-5 order-2 lg:order-1 flex flex-col justify-between gap-12 lg:gap-10 px-6 md:px-12 lg:px-16 py-12 lg:py-16">
+
+        {/* Top — quiet brand line */}
+        <div className="flex items-baseline justify-between archive-reveal">
+          <span className="font-serif text-[12px] md:text-[13px] tracking-[0.4em] uppercase text-ink-black">
+            Nino&nbsp;D
+          </span>
+          <span className="text-[10px] tracking-[0.3em] uppercase text-stone-grey font-medium">
+            Catalogue 00
+          </span>
         </div>
 
-        {/* Right Cropped Artwork Detail (LCP Candidate) */}
-        <div className="col-span-1 md:col-span-6">
-          <div className="relative w-full aspect-[16/10] md:aspect-[4/3] overflow-hidden safari-clip-fix bg-paper-grey border border-stone-grey/10 group">
-            <Image
-              src="/images/visual-archive/abcd.jpeg"
-              alt="A B C D painting fragment, serving as the visual gateway to Nino D's archive"
-              fill
-              priority
-              className="object-cover transition-transform duration-[4000ms] ease-[cubic-bezier(0.25,1,0.5,1)] scale-100 group-hover:scale-[1.03] grayscale-[20%] group-hover:grayscale-0"
-              sizes="(max-width: 768px) 100vw, 50vw"
-              loading="eager"
-            />
-            {/* Fine Art Overlay */}
-            <div className="absolute inset-0 bg-ink-black/5 mix-blend-overlay pointer-events-none" />
-            <div className="absolute bottom-4 right-4 bg-warm-ivory/90 backdrop-blur-sm border border-stone-grey/25 py-1 px-3 text-[9px] uppercase tracking-widest text-ink-black/80">
-              Fragment: A B C D
-            </div>
+        {/* Middle — the void carries it */}
+        <div className="max-w-sm">
+          <span
+            className="block text-[10px] tracking-[0.34em] uppercase text-deep-oxblood font-semibold archive-reveal"
+            style={{ animationDelay: "340ms" }}
+          >
+            The Painted Source
+          </span>
+
+          <h1
+            className="mt-5 font-serif text-4xl md:text-5xl leading-[0.96] tracking-tight text-ink-black archive-reveal"
+            style={{ animationDelay: "440ms" }}
+          >
+            Visual<br />Archive
+          </h1>
+
+          <p
+            className="mt-7 font-serif text-base md:text-lg leading-relaxed text-ink-black/80 font-light archive-reveal"
+            style={{ animationDelay: "580ms" }}
+          >
+            The source from which everything begins — the painted world of Nino Devdariani.
+          </p>
+
+          <p
+            className="mt-4 font-cormorant italic text-sm md:text-base leading-relaxed text-stone-grey archive-reveal"
+            style={{ animationDelay: "680ms" }}
+          >
+            No archive can fully contain it. This is an entrance.
+          </p>
+
+          <div className="mt-8 archive-reveal" style={{ animationDelay: "780ms" }}>
+            <a
+              href="#archive-selection"
+              className="group inline-flex items-center gap-3 text-[11px] tracking-[0.28em] uppercase text-ink-black border-b border-ink-black/40 pb-1.5 transition-colors duration-300 hover:text-deep-oxblood hover:border-deep-oxblood focus:outline-none focus-visible:ring-2 focus-visible:ring-deep-oxblood focus-visible:ring-offset-4 focus-visible:ring-offset-warm-ivory"
+            >
+              <span>Enter the Archive</span>
+              <span className="transition-transform duration-300 group-hover:translate-x-1">&rarr;</span>
+            </a>
           </div>
         </div>
+
+        {/* Bottom — quiet catalogue contents */}
+        <nav
+          aria-label="Catalogue contents"
+          className="archive-reveal"
+          style={{ animationDelay: "920ms" }}
+        >
+          <span className="block text-[9px] tracking-[0.3em] uppercase text-stone-grey/80 pb-4 border-b border-ink-black/10">
+            Contents — Eight Works
+          </span>
+          <ul className="grid grid-cols-2 gap-x-8 gap-y-2.5 pt-4">
+            {visualArchiveEntries.map((item, index) => {
+              const isActive = index === active;
+              const n = String(index + 1).padStart(2, "0");
+              return (
+                <li key={item.id}>
+                  <Link
+                    href={`/visual-archive/${item.slug}`}
+                    aria-current={isActive ? "true" : undefined}
+                    onMouseEnter={() => setActive(index)}
+                    onFocus={() => setActive(index)}
+                    className="group flex items-baseline gap-2.5 py-0.5 focus:outline-none"
+                  >
+                    <span
+                      className={`font-serif text-[10px] tracking-[0.15em] tabular-nums transition-colors duration-300 ${isActive ? "text-deep-oxblood" : "text-stone-grey group-hover:text-deep-oxblood"
+                        }`}
+                    >
+                      {n}
+                    </span>
+                    <span
+                      className={`font-serif text-[13px] md:text-sm leading-tight transition-colors duration-300 ${isActive
+                          ? "text-deep-oxblood"
+                          : "text-ink-black/75 group-hover:text-ink-black group-focus-visible:text-deep-oxblood"
+                        }`}
+                    >
+                      {item.title}
+                    </span>
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        </nav>
+      </div>
+
+      {/* ---------- RIGHT — monumental full-bleed work ---------- */}
+      <div className="lg:col-span-7 order-1 lg:order-2 relative min-h-[60vh] lg:min-h-full bg-paper-grey overflow-hidden">
+        {/* Ceremonial image reveal */}
+        <div
+          className="absolute inset-0 archive-reveal archive-reveal-slow"
+          style={{ animationDelay: "180ms" }}
+        >
+          <Image
+            key={entry.id}
+            src={entry.image.src}
+            alt={entry.image.alt}
+            fill
+            priority={active === 0}
+            loading={active === 0 ? "eager" : "lazy"}
+            className="object-cover plate-fade"
+            sizes="(max-width: 1024px) 100vw, 58vw"
+          />
+        </div>
+
+        {/* Click target — enter the currently shown work */}
+        <Link
+          href={`/visual-archive/${entry.slug}`}
+          aria-label={`View archive entry ${plateNo} — ${entry.title}`}
+          className="absolute inset-0 z-10 focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-warm-ivory"
+        />
+
+        {/* Museum wall label */}
+        <figcaption
+          className="absolute left-5 bottom-5 md:left-8 md:bottom-8 z-20 pointer-events-none max-w-[80%] archive-reveal"
+          style={{ animationDelay: "1000ms" }}
+        >
+          <div className="bg-warm-ivory/90 backdrop-blur-sm border border-ink-black/10 px-4 py-3 md:px-5 md:py-4">
+            <p className="text-[9px] md:text-[10px] tracking-[0.28em] uppercase text-stone-grey">
+              {entry.meta?.artist ?? "Nino Devdariani"}
+            </p>
+            <p className="font-serif italic text-base md:text-lg text-ink-black mt-1">
+              {entry.title}
+              {entry.meta?.year && entry.meta.year !== "Year to be confirmed" && (
+                <span className="text-stone-grey not-italic">, {entry.meta.year}</span>
+              )}
+            </p>
+            <p className="text-[10px] md:text-[11px] text-stone-grey tracking-wide mt-1">
+              {entry.meta?.medium ?? "Acrylic and ink on canvas"}
+              <span className="mx-2 text-stone-grey/50">·</span>
+              Plate {plateNo} / {total}
+            </p>
+          </div>
+        </figcaption>
       </div>
     </section>
   );
@@ -61,7 +176,7 @@ export function VisualArchiveIntro() {
     <section className="w-full bg-warm-ivory py-16 md:py-24 border-b border-stone-grey/15">
       <div className="mx-auto max-w-3xl px-6 md:px-12 text-center space-y-8">
         <span className="text-[10px] uppercase tracking-[0.3em] text-stone-grey font-medium block">
-          00 / Intro Note
+          00 / Archive Statement
         </span>
         <div className="h-[1px] w-12 bg-deep-oxblood/35 mx-auto" />
         <h2 className="font-serif italic text-2xl md:text-3xl text-ink-black leading-relaxed max-w-2xl mx-auto font-light">
@@ -88,7 +203,7 @@ interface ArchiveWorkPlateProps {
 }
 
 export function ArchiveWorkPlate({ entry }: ArchiveWorkPlateProps) {
-  const { order, slug, title, subtitle, tags, image } = entry;
+  const { order, slug, title, subtitle, archiveNote, tags, image } = entry;
   const numString = order.toString().padStart(2, "0");
 
   // Determine editorial styling rhythm based on order
@@ -185,6 +300,13 @@ export function ArchiveWorkPlate({ entry }: ArchiveWorkPlateProps) {
             </p>
           </div>
 
+          {/* Archive Note */}
+          {archiveNote && (
+            <p className="text-xs text-stone-grey/90 leading-relaxed tracking-wide font-sans">
+              {archiveNote}
+            </p>
+          )}
+
           {/* Tags */}
           <div className="flex flex-wrap gap-2 pt-2">
             {tags.map((tag) => (
@@ -214,6 +336,162 @@ export function ArchiveWorkPlate({ entry }: ArchiveWorkPlateProps) {
 }
 
 /* ==========================================
+   3.5 CinematicInterlude — Archive Film
+   The painting leaves the wall. The bridge between
+   Visual Archive and Wearable Archive.
+   ========================================== */
+export function CinematicInterlude() {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [hasStarted, setHasStarted] = useState(false);
+  const [reduceMotion, setReduceMotion] = useState(false);
+
+  // Attempt a quiet, muted autoplay unless the visitor prefers reduced motion.
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const prefersReduced =
+      typeof window !== "undefined" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    if (prefersReduced) {
+      setReduceMotion(true);
+      return; // Leave it paused on the designed poster frame.
+    }
+
+    const attempt = video.play();
+    if (attempt && typeof attempt.then === "function") {
+      attempt.catch(() => {
+        // Autoplay blocked — the poster + play affordance stay in place.
+        setIsPlaying(false);
+      });
+    }
+  }, []);
+
+  const togglePlay = () => {
+    const video = videoRef.current;
+    if (!video) return;
+    if (video.paused) {
+      void video.play();
+    } else {
+      video.pause();
+    }
+  };
+
+  return (
+    <section
+      aria-labelledby="archive-film-title"
+      className="w-full bg-warm-ivory border-b border-stone-grey/15 py-16 md:py-24"
+    >
+      <div className="mx-auto max-w-5xl px-6 md:px-12">
+        {/* Section header */}
+        <div className="max-w-2xl mb-10 md:mb-14">
+          <div className="flex items-center gap-3">
+            <span className="font-serif text-[11px] uppercase tracking-[0.25em] text-deep-oxblood font-semibold">
+              02 / Archive Film
+            </span>
+            <span className="h-[1px] w-10 bg-stone-grey/25" />
+          </div>
+          <h2
+            id="archive-film-title"
+            className="font-serif text-3xl md:text-4xl text-ink-black tracking-wide leading-tight mt-4"
+          >
+            Paintings that leave the wall.
+          </h2>
+          <div className="space-y-4 mt-5 text-xs text-stone-grey leading-relaxed tracking-wide font-sans max-w-xl">
+            <p>Some works remain on the wall. Others begin to move.</p>
+            <p>
+              This short archive film imagines the moment when a painted world
+              crosses into fabric, body, gesture, and return.
+            </p>
+          </div>
+        </div>
+
+        {/* Cinematic frame */}
+        <figure className="m-0">
+          <div className="relative w-full aspect-video overflow-hidden bg-warm-ivory border border-stone-grey/25 shadow-sm safari-clip-fix">
+            <video
+              ref={videoRef}
+              muted
+              loop
+              playsInline
+              preload="metadata"
+              aria-label="Archive film — a painted world crosses into fabric, body, and gesture, and sometimes returns to the archive"
+              className="w-full h-full object-cover"
+              onPlay={() => {
+                setIsPlaying(true);
+                setHasStarted(true);
+              }}
+              onPause={() => setIsPlaying(false)}
+            >
+              <source src="/videos/sometimes_return.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+
+            {/* Designed poster / play affordance — shown before first play
+                (covers blocked autoplay and prefers-reduced-motion). */}
+            {!hasStarted && (
+              <button
+                type="button"
+                onClick={togglePlay}
+                aria-label="Play the archive film"
+                className="absolute inset-0 z-20 flex flex-col items-center justify-center gap-5 bg-warm-ivory/92 backdrop-blur-sm transition-opacity duration-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-deep-oxblood focus-visible:ring-inset"
+              >
+                <span className="block text-[10px] tracking-[0.34em] uppercase text-deep-oxblood font-semibold">
+                  Archive Film
+                </span>
+                <span className="flex h-16 w-16 items-center justify-center rounded-full border border-ink-black/30 text-ink-black transition-colors duration-300 hover:border-deep-oxblood hover:text-deep-oxblood">
+                  {/* play triangle */}
+                  <svg width="18" height="20" viewBox="0 0 18 20" fill="currentColor" aria-hidden="true">
+                    <path d="M0 0v20l18-10L0 0z" />
+                  </svg>
+                </span>
+              </button>
+            )}
+
+            {/* Persistent, subtle pause/play control once the film has started */}
+            {hasStarted && (
+              <button
+                type="button"
+                onClick={togglePlay}
+                aria-label={isPlaying ? "Pause the archive film" : "Play the archive film"}
+                className="absolute bottom-4 right-4 z-20 flex h-10 w-10 items-center justify-center bg-warm-ivory/85 backdrop-blur-sm border border-ink-black/15 text-ink-black transition-colors duration-300 hover:text-deep-oxblood hover:border-deep-oxblood focus:outline-none focus-visible:ring-2 focus-visible:ring-deep-oxblood"
+              >
+                {isPlaying ? (
+                  <svg width="12" height="14" viewBox="0 0 12 14" fill="currentColor" aria-hidden="true">
+                    <rect x="0" y="0" width="4" height="14" />
+                    <rect x="8" y="0" width="4" height="14" />
+                  </svg>
+                ) : (
+                  <svg width="12" height="14" viewBox="0 0 12 14" fill="currentColor" aria-hidden="true">
+                    <path d="M0 0v14l12-7L0 0z" />
+                  </svg>
+                )}
+              </button>
+            )}
+          </div>
+
+          {/* Manifesto caption — quiet, important, not oversized */}
+          <figcaption className="mt-6 font-cormorant italic text-lg md:text-xl text-ink-black/85 leading-relaxed tracking-wide max-w-md">
+            Paintings that leave the wall,
+            <br />
+            and sometimes return.
+          </figcaption>
+        </figure>
+
+        {reduceMotion && (
+          <p className="sr-only">
+            The archive film is paused because your system requests reduced
+            motion. Use the play control to watch it.
+          </p>
+        )}
+      </div>
+    </section>
+  );
+}
+
+/* ==========================================
    4. ArchiveBridge
    ========================================== */
 export function ArchiveBridge() {
@@ -223,7 +501,7 @@ export function ArchiveBridge() {
         {/* Descriptive Column */}
         <div className="col-span-1 md:col-span-7 space-y-6">
           <div className="flex items-center gap-3">
-            <span className="font-serif text-[11px] uppercase tracking-[0.25em] text-deep-oxblood font-semibold">Archival Translation</span>
+            <span className="font-serif text-[11px] uppercase tracking-[0.25em] text-deep-oxblood font-semibold">03 / Wearable Translation</span>
             <span className="h-[1px] w-12 bg-stone-grey/30" />
           </div>
           <h3 className="font-serif text-3xl md:text-4xl text-ink-black uppercase tracking-wider leading-tight">
@@ -269,19 +547,22 @@ interface InquiryCTAProps {
   customTitle?: string;
   customText?: string;
   itemOfInterest?: string;
+  ctaHref?: string;
 }
 
-export function InquiryCTA({ customTitle, customText, itemOfInterest }: InquiryCTAProps) {
+export function InquiryCTA({ customTitle, customText, itemOfInterest, ctaHref }: InquiryCTAProps) {
   const baseTitle = customTitle || "Private Viewings & Inquiries";
-  const baseText = customText || "For original works, commissions, archive access, collaborations, and collector inquiries, contact the studio directly.";
-  const acquireUrl = itemOfInterest
-    ? `/acquire?interest=Original%20Work&item=${encodeURIComponent(itemOfInterest)}`
-    : "/acquire";
+  const baseText = customText || "For original works, archive access, collaborations, commissions, and collector inquiries, contact the studio directly.";
+  const acquireUrl = ctaHref
+    ? ctaHref
+    : itemOfInterest
+      ? `/acquire?interest=Original%20Work&item=${encodeURIComponent(itemOfInterest)}`
+      : "/acquire";
 
   return (
     <section className="w-full bg-warm-ivory py-16 md:py-24 max-w-3xl mx-auto px-6 md:px-12 text-center space-y-6">
       <div className="flex items-center gap-3 justify-center">
-        <span className="font-serif text-[10px] uppercase tracking-[0.25em] text-deep-oxblood font-semibold">Collector Office</span>
+        <span className="font-serif text-[10px] uppercase tracking-[0.25em] text-deep-oxblood font-semibold">04 / Private Access</span>
         <span className="h-[1px] w-8 bg-stone-grey/25" />
       </div>
       <h3 className="font-serif text-2xl md:text-3xl text-ink-black uppercase tracking-wider font-light">

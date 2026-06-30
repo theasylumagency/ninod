@@ -60,6 +60,22 @@ body {
   animation-duration: 1100ms;
 }
 
+/* Gentle opacity fade for swapping the featured catalogue plate */
+@keyframes plate-fade {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.plate-fade {
+  -webkit-animation: plate-fade 650ms ease both;
+  animation: plate-fade 650ms ease both;
+}
+
 /* Fix Safari bleed/overflow issue when child element scales inside overflow-hidden parent */
 .safari-clip-fix {
   -webkit-backface-visibility: hidden;
@@ -81,7 +97,8 @@ body {
 @media (prefers-reduced-motion: reduce) {
 
   .archive-reveal,
-  .archive-reveal-slow {
+  .archive-reveal-slow,
+  .plate-fade {
     animation: none;
     -webkit-animation: none;
   }
