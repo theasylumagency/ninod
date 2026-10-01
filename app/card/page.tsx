@@ -357,21 +357,12 @@ export default function CardPage() {
 
         <div className="flex flex-wrap justify-center gap-x-6 gap-y-4 mt-10">
           <a
-            href="https://instagram.com"
+            href="https://www.instagram.com/devdoart_/"
             target="_blank"
             rel="noopener noreferrer"
             className="text-[9px] uppercase tracking-[0.25em] font-semibold text-stone-grey hover:text-ink-black transition-colors"
           >
             Instagram
-          </a>
-
-          <a
-            href="https://pinterest.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-[9px] uppercase tracking-[0.25em] font-semibold text-stone-grey hover:text-ink-black transition-colors"
-          >
-            Pinterest
           </a>
 
           <a

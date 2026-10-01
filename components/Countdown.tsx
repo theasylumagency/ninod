@@ -41,6 +41,9 @@ export default function Countdown({
     return () => clearInterval(id);
   }, []);
 
+  // Once the moment has passed, a countdown has nothing left to say.
+  if (t?.done) return null;
+
   if (variant === "compact") {
     return (
       <span className="tabular-nums tracking-wider" suppressHydrationWarning>

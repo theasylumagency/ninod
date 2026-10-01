@@ -4,6 +4,8 @@ import Link from "next/link";
 import LogoMark from "@/components/LogoMark";
 import { usePathname } from "next/navigation";
 import WaitlistForm from "@/components/WaitlistForm";
+import { STUDIO_CONTACT } from "@/data/polyphony";
+import { track } from "@/lib/analytics";
 
 export default function SiteFooter() {
   const pathname = usePathname();
@@ -57,24 +59,31 @@ export default function SiteFooter() {
 
         {/* Waitlist Column */}
         <div className="col-span-1 md:col-span-3 flex flex-col space-y-4">
-          <h4 className="text-xs uppercase tracking-[0.25em] font-medium text-stone-grey">Join the list</h4>
+          <h4 className="text-xs uppercase tracking-[0.25em] font-medium text-stone-grey">Reservation list</h4>
           <p className="text-xs text-stone-grey leading-relaxed">
-            First access to Edition 01 before it opens publicly. One hundred numbered pieces, opened once, then closed forever.
+            Edition 01 is in preparation — one hundred numbered silk pieces, opened once, then closed forever. Reserve your place; no payment now.
           </p>
-          <WaitlistForm source="footer" />
+          <WaitlistForm source="footer" cta="Reserve" />
         </div>
 
         {/* Right Column - Social & Legal */}
         <div className="col-span-1 md:col-span-2 flex flex-col space-y-4 md:items-end">
           <h4 className="text-xs uppercase tracking-[0.25em] font-medium text-stone-grey">Connect</h4>
           <div className="flex flex-col space-y-3 md:items-end">
-            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="text-xs uppercase tracking-[0.2em] hover:text-deep-oxblood transition-colors">
+            <a
+              href={STUDIO_CONTACT.instagram}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => track("social_click", { network: "instagram", placement: "footer" })}
+              className="text-xs uppercase tracking-[0.2em] hover:text-deep-oxblood transition-colors"
+            >
               Instagram
             </a>
-            <a href="https://pinterest.com" target="_blank" rel="noopener noreferrer" className="text-xs uppercase tracking-[0.2em] hover:text-deep-oxblood transition-colors">
-              Pinterest
-            </a>
-            <a href="mailto:studio@ninod.space" className="text-xs uppercase tracking-[0.2em] hover:text-deep-oxblood transition-colors">
+            <a
+              href={`mailto:${STUDIO_CONTACT.email}`}
+              onClick={() => track("contact_click", { method: "email", lead_source: "footer" })}
+              className="text-xs uppercase tracking-[0.2em] hover:text-deep-oxblood transition-colors"
+            >
               Email
             </a>
             <div className="pt-4 flex flex-col space-y-2 md:items-end border-t border-stone-grey/10 w-full md:w-auto">

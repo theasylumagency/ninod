@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Countdown from "@/components/Countdown";
-import { EDITIONS_OPEN, LAUNCH_DATE_LABEL } from "@/data/launch";
+import { EDITIONS_OPEN, LAUNCH_DATE_CONFIRMED, LAUNCH_STATUS_LABEL } from "@/data/launch";
 import { POLYPHONY } from "@/data/polyphony";
 
 export default function AnnounceBar() {
@@ -35,12 +35,14 @@ export default function AnnounceBar() {
             href="/#waitlist"
             className="flex items-center gap-2 transition-opacity hover:opacity-80"
           >
-            <span>Edition 01 — Opening {LAUNCH_DATE_LABEL}</span>
-            <span className="hidden opacity-70 md:inline">
-              <Countdown variant="compact" />
-            </span>
+            <span>Edition 01 — {LAUNCH_STATUS_LABEL}</span>
+            {LAUNCH_DATE_CONFIRMED && (
+              <span className="hidden opacity-70 md:inline">
+                <Countdown variant="compact" />
+              </span>
+            )}
             <span className="opacity-70">·</span>
-            <span className="underline underline-offset-2">Join for first access</span>
+            <span className="underline underline-offset-2">Reserve your place</span>
           </Link>
         )}
       </div>

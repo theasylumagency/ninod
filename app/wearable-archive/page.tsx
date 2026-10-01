@@ -307,7 +307,7 @@ export default function WearableArchivePage() {
         <WaitlistSection
           kicker="The Wearable Archive"
           headline="Wear a fragment of the world."
-          subcopy="Each edition is a numbered piece from a permanently closed run of 100. Join the list for first access before Edition 01 opens to the public."
+          subcopy="Each edition is a numbered piece from a permanently closed run of 100. Join the reservation list — no payment now — for first access before Edition 01 opens to the public."
           source="wearable-archive"
         />
       )}

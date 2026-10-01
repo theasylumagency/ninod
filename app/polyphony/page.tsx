@@ -304,6 +304,16 @@ export default function PolyphonyPage() {
               >
                 {STUDIO_CONTACT.email}
               </TrackedAnchor>
+              <TrackedAnchor
+                href={STUDIO_CONTACT.instagram}
+                target="_blank"
+                rel="noopener noreferrer"
+                event="social_click"
+                params={{ network: "instagram", placement: "polyphony_collection" }}
+                className="block text-sm font-serif hover:text-deep-oxblood transition-colors"
+              >
+                Instagram {STUDIO_CONTACT.instagramHandle}
+              </TrackedAnchor>
             </div>
           </div>
 

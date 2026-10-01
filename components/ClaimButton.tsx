@@ -2,25 +2,28 @@
 
 import Link from "next/link";
 import { useVault, type VaultItem } from "@/components/VaultContext";
-import { EDITIONS_OPEN, LAUNCH_DATE_LABEL } from "@/data/launch";
+import WaitlistForm from "@/components/WaitlistForm";
+import { EDITIONS_OPEN, LAUNCH_STATUS_LABEL } from "@/data/launch";
 
 export default function ClaimButton({ item }: { item: VaultItem }) {
   const { claim, has, hydrated } = useVault();
   const claimed = hydrated && has(item.id);
 
-  // Pre-launch: nothing is for sale yet — drive to the waitlist instead.
+  // Pre-launch: nothing is for sale yet — reserve a place for this design (no payment).
   if (!EDITIONS_OPEN) {
     return (
-      <div className="flex flex-col gap-3">
+      <div className="flex flex-col gap-3 w-full max-w-sm">
         <span className="text-[10px] uppercase tracking-[0.25em] text-deep-oxblood font-medium">
-          Opening {LAUNCH_DATE_LABEL}
+          Edition {item.archiveNo} · {LAUNCH_STATUS_LABEL}
         </span>
-        <Link
-          href="/#waitlist"
-          className="inline-block border border-ink-black text-ink-black text-[10px] font-medium tracking-[0.2em] uppercase py-3.5 px-8 hover:bg-ink-black hover:text-warm-ivory transition-colors duration-300 w-fit"
-        >
-          Join for first access →
-        </Link>
+        <p className="text-[11px] text-stone-grey leading-relaxed tracking-wide">
+          Reserve your place for this design — no payment now. You will be offered a number before the edition opens to the public.
+        </p>
+        <WaitlistForm
+          source={`reserve:Edition ${item.archiveNo} — ${item.title}`}
+          cta="Reserve"
+          successText={`Reserved. We will write to you before Edition ${item.archiveNo} — ${item.title} opens.`}
+        />
       </div>
     );
   }

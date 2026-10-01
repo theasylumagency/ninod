@@ -109,6 +109,7 @@ export default function RootLayout({
                   description:
                     "Contemporary art brand by Nino Devdariani, featuring original paintings, limited editions, and wearable silk archive works.",
                   founder: { "@id": `${siteUrl}/#person` },
+                  sameAs: ["https://www.instagram.com/devdoart_/"],
                 },
                 {
                   "@type": "Person",
@@ -119,6 +120,7 @@ export default function RootLayout({
                   description:
                     "Contemporary visual artist working in painting and wearable silk editions.",
                   worksFor: { "@id": `${siteUrl}/#organization` },
+                  sameAs: ["https://www.instagram.com/devdoart_/"],
                 },
                 {
                   "@type": "WebSite",

@@ -86,6 +86,8 @@ export const STUDIO_CONTACT = {
   phoneDisplay: "+995 574 40 60 61",
   phoneHref: "+995574406061",
   whatsapp: "995574406061",
+  instagram: "https://www.instagram.com/devdoart_/",
+  instagramHandle: "@devdoart_",
 } as const;
 
 const MEDIUM = POLYPHONY.medium;

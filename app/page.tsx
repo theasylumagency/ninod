@@ -4,6 +4,7 @@ import Image from "next/image";
 import WearableSlider from "@/components/WearableSlider";
 import WaitlistSection from "@/components/WaitlistSection";
 import { PolyphonyFeature } from "@/components/Polyphony";
+import { POLYPHONY } from "@/data/polyphony";
 
 export const metadata: Metadata = {
   title: { absolute: "Nino D — Paintings that leave the wall" },
@@ -13,6 +14,11 @@ export const metadata: Metadata = {
 };
 
 export default function Home() {
+  // While Polyphony is the current moment, the hero points there; otherwise to the reservation list.
+  const heroCta = POLYPHONY.featured
+    ? { href: POLYPHONY.path, label: "Polyphony · New collection" }
+    : { href: "/#waitlist", label: "Reserve your place" };
+
   return (
     <div className="w-full flex flex-col bg-warm-ivory text-ink-black overflow-x-hidden">
       <h1 className="sr-only">
@@ -56,10 +62,10 @@ export default function Home() {
             </p>
             <div className="flex flex-col gap-4 w-full">
               <Link
-                href="/#waitlist"
+                href={heroCta.href}
                 className="bg-ink-black text-warm-ivory text-xs uppercase tracking-[0.2em] font-medium py-4 px-6 text-center hover:bg-deep-oxblood transition-colors duration-300"
               >
-                Join for first access
+                {heroCta.label}
               </Link>
               <Link
                 href="/about"
@@ -97,10 +103,10 @@ export default function Home() {
             </p>
             <div className="flex flex-col gap-4 w-full max-w-xs items-center">
               <Link
-                href="/#waitlist"
+                href={heroCta.href}
                 className="w-full bg-ink-black text-warm-ivory text-[10px] uppercase tracking-[0.25em] font-medium py-4 px-6 hover:bg-deep-oxblood transition-colors duration-300 text-center"
               >
-                Join for first access
+                {heroCta.label}
               </Link>
               <Link
                 href="/about"
@@ -246,7 +252,7 @@ export default function Home() {
                 href="/#waitlist"
                 className="text-xs uppercase tracking-[0.2em] font-medium border-b border-ink-black/20 pb-1 hover:border-deep-oxblood hover:text-deep-oxblood transition-all duration-300"
               >
-                Join for first access
+                Join the reservation list
               </Link>
             </div>
           </div>
@@ -300,7 +306,7 @@ export default function Home() {
       <WaitlistSection
         kicker="Edition 01"
         headline="Three editions. One hundred each. Then closed forever."
-        subcopy="Nino D opens its first wearable editions in September. Each is a numbered piece from a permanently closed run. Join the list for first access before they open to the public."
+        subcopy="Nino D is preparing its first wearable editions. Each is a numbered piece from a permanently closed run. Join the reservation list — no payment now — for first access before they open to the public."
         source="homepage"
       />
 

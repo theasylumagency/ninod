@@ -1,15 +1,22 @@
 "use client";
 
 import { useState } from "react";
+import { track } from "@/lib/analytics";
 
 type Status = "idle" | "loading" | "done" | "error";
 
 export default function WaitlistForm({
   source = "site",
   theme = "light",
+  cta = "Join",
+  successText = "You are on the reservation list. We will write to you before Edition 01 opens.",
 }: {
   source?: string;
   theme?: "light" | "dark";
+  /** Button label. */
+  cta?: string;
+  /** Message shown after a successful sign-up. */
+  successText?: string;
 }) {
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<Status>("idle");
@@ -24,13 +31,15 @@ export default function WaitlistForm({
       const res = await fetch("/api/waitlist", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: email.trim(), source }),
+        body: JSON.stringify({ email: email.trim(), source, page: window.location.href }),
       });
       if (!res.ok) throw new Error("request failed");
       setStatus("done");
       setEmail("");
+      track("join_waitlist", { lead_source: source });
     } catch {
       setStatus("error");
+      track("join_waitlist_error", { lead_source: source });
     }
   };
 
@@ -41,7 +50,7 @@ export default function WaitlistForm({
           dark ? "text-warm-ivory" : "text-deep-oxblood"
         }`}
       >
-        You are on the list. We will write to you before Edition 01 opens.
+        {successText}
       </p>
     );
   }
@@ -58,6 +67,7 @@ export default function WaitlistForm({
         <input
           type="email"
           required
+          aria-label="Email address"
           placeholder="EMAIL ADDRESS"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
@@ -76,7 +86,7 @@ export default function WaitlistForm({
               : "text-ink-black hover:text-deep-oxblood"
           }`}
         >
-          {status === "loading" ? "…" : "Join"}
+          {status === "loading" ? "…" : cta}
         </button>
       </div>
       {status === "error" && (
@@ -85,7 +95,13 @@ export default function WaitlistForm({
             dark ? "text-warm-ivory/80" : "text-deep-oxblood"
           }`}
         >
-          Something went wrong — please try again.
+          Something went wrong — please try again, or write to{" "}
+          <a
+            href={`mailto:studio@ninod.space?subject=${encodeURIComponent("Reservation list")}&body=${encodeURIComponent(`Please add ${email || "me"} to the reservation list (${source}).`)}`}
+            className="underline underline-offset-2 normal-case"
+          >
+            studio@ninod.space
+          </a>
         </p>
       )}
     </form>

@@ -1,20 +1,33 @@
 // ============================================================
 //  Nino D — Launch configuration (single source of truth)
-//  Change the date and the EDITIONS_OPEN flag here only.
+//  Change the date and the flags here only.
 // ============================================================
 
-/** The moment Edition 01 opens. Tbilisi time (UTC+4). */
+/**
+ * Is there a confirmed opening date for Edition 01?
+ *  false = "in preparation" → no date and no countdown anywhere;
+ *          visitors join the reservation list (no payment).
+ *  true  = the date below is shown with a live countdown.
+ */
+export const LAUNCH_DATE_CONFIRMED = false;
+
+/** The moment Edition 01 opens. Tbilisi time (UTC+4). Used only when confirmed. */
 export const LAUNCH_DATE = new Date("2026-09-25T18:00:00+04:00");
 
-/** Human-readable date shown across the site. */
+/** Human-readable date shown across the site. Used only when confirmed. */
 export const LAUNCH_DATE_LABEL = "September 25, 2026";
 
-/** Short month label for softer references. */
+/** Short month label for softer references. Used only when confirmed. */
 export const LAUNCH_MONTH_LABEL = "September";
+
+/** What the site says about timing — one place for every banner and button. */
+export const LAUNCH_STATUS_LABEL = LAUNCH_DATE_CONFIRMED
+  ? `Opening ${LAUNCH_DATE_LABEL}`
+  : "In preparation";
 
 /**
  * Phase switch.
- *  false = pre-launch  → Join the waitlist is the primary action,
+ *  false = pre-launch  → the reservation list is the primary action,
  *                        the Claim / Vault / checkout flow is dormant.
  *  true  = open        → Claim is live, The Vault returns to the nav.
  * Flip to `true` on launch day.

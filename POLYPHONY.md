@@ -49,8 +49,8 @@
 
 ## GA-ში (ერთხელ, ~5 წუთი)
 
-- Admin → Data display → Events: `generate_lead` და `contact_click` → **Mark as key event**.
-- Admin → Custom definitions → event-scoped dimensions: `lead_source`, `intent`, `method`, `placement`.
+- Admin → Data display → Events: `generate_lead`, `contact_click` და `join_waitlist` → **Mark as key event**.
+- Admin → Custom definitions → event-scoped dimensions: `lead_source`, `intent`, `method`, `placement`, `network`.
 - Admin → Data collection → Data retention → **14 months** (default 2 თვეა).
 - გამოფენის დღეებში: Reports → Realtime; QR ტრაფიკი: Acquisition → Traffic acquisition → session source = `spectrum_chicago`.
 
@@ -67,9 +67,21 @@
 3. "Shipping is arranged individually with each collector" — დავტოვოთ თუ სხვა პირობებია?
 4. ფასები ჩარჩოთი თუ ჩარჩოს გარეშეა?
 
-## სხვა რაც შევნიშნე (არ შემიცვლია)
+## Edition 01 — თარიღის გარეშე (განახლება)
 
-- launch date (25 სექტემბერი) გავიდა, `EDITIONS_OPEN = false` — announce bar ძველ countdown-ს აჩვენებდა; ახლა იქ Polyphony-ა.
-- Instagram/Pinterest ბმულები ფუტერში ისევ placeholder-ებია.
+- `data/launch.ts` → `LAUNCH_DATE_CONFIRMED = false`: საიტზე აღარსად ჩანს თარიღი და countdown, ყველგან წერია "In preparation".
+- "Join the list" გახდა **reservation list** — "Reserve your place, no payment now": ჩაწერილები სხვებზე ადრე მიიღებენ ნომრის აღების შესაძლებლობას.
+- Wearable Archive-ზე თითო დიზაინს (Alter Ego, Dementia, Bekas Dream) აქვს საკუთარი "Reserve" ველი. ასე ჩანს, რომელ შარფზე მეტი მოთხოვნაა, ანუ რომელი უნდა დაიბეჭდოს პირველი.
+- რეზერვაციის ყველა ჩანაწერი ახლა ისევე მოდის Telegram-ში და/ან მეილზე, როგორც inquiry (`lib/notify.ts`). მანამდე მხოლოდ სერვერის ფაილში იწერებოდა. GA event: `join_waitlist` (`lead_source` = რომელი დიზაინი ან რომელი გვერდი).
+- მთავარ გვერდზე hero-ს მთავარი ღილაკი, სანამ `featured: true`-ა, არის "Polyphony · New collection", მერე ავტომატურად "Reserve your place" ხდება.
+- როცა თარიღი გეცოდინებათ: `LAUNCH_DATE` + `LAUNCH_DATE_LABEL` → `LAUNCH_DATE_CONFIRMED = true`. countdown თავად დაბრუნდება და თარიღის გასვლის შემდეგ თავად გაქრება.
+
+## Instagram
+
+- @devdoart_ (https://www.instagram.com/devdoart_/) — ფუტერში, /card-ზე, Polyphony-ს კონტაქტებში, vCard-ში, JSON-LD `sameAs`-ში და სტენდის ნიშანზე. Pinterest ამოვიღე, რადგან ანგარიში არ არსებობს.
+- GA event: `social_click`.
+
+## სხვა
+
 - Privacy გვერდზე ეწერა "London studio" — ამოვიღე "London" და დავამატე ორი წინადადება Google Analytics-სა და ფორმებზე.
 - შემოწმება: `tsc` სუფთაა, production build გადის (ჩემს გარემოში Google Fonts დაბლოკილია, ამიტომ ვამოწმებდი `next build --webpack`-ით; თქვენთან ჩვეულებრივი `npm run build` იმუშავებს). `npm run lint`-ის 3 შეცდომა ჩემამდეც იყო (Countdown, VaultContext, VisualArchive) — ახალ ფაილებში შეცდომა არ არის.

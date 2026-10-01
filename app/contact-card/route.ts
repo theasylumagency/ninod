@@ -7,6 +7,7 @@ export async function GET() {
         "EMAIL;TYPE=WORK,PREF:studio@ninod.space",
         "TEL;TYPE=CELL:+995574406061",
         "URL:https://ninod.space",
+        "X-SOCIALPROFILE;TYPE=instagram:https://www.instagram.com/devdoart_/",
         "NOTE:Paintings that leave the wall.",
         "END:VCARD",
     ].join("\r\n");

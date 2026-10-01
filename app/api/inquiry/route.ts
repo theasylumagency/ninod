@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
-import { promises as fs } from "fs";
-import path from "path";
+import { appendLog, notifyStudio } from "@/lib/notify";
 
 // ============================================================
 //  Collector inquiries.
@@ -15,8 +14,6 @@ import path from "path";
 //  message prefilled, so an inquiry is never silently lost.
 // ============================================================
 
-const DATA_DIR = path.join(process.cwd(), "data");
-const LOG_FILE = path.join(DATA_DIR, "inquiries.jsonl");
 const EMAIL_RE = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
 
 const clean = (v: unknown, max = 2000) =>
@@ -49,55 +46,6 @@ function asText(q: Inquiry) {
   return [head.join("\n"), q.message, foot.join("\n")].filter(Boolean).join("\n\n");
 }
 
-async function sendTelegram(q: Inquiry): Promise<boolean> {
-  const token = process.env.TELEGRAM_BOT_TOKEN;
-  const chatId = process.env.TELEGRAM_CHAT_ID;
-  if (!token || !chatId) return false;
-  try {
-    const res = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ chat_id: chatId, text: asText(q), disable_web_page_preview: true }),
-    });
-    return res.ok;
-  } catch {
-    return false;
-  }
-}
-
-async function sendEmail(q: Inquiry): Promise<boolean> {
-  const key = process.env.RESEND_API_KEY;
-  if (!key) return false;
-  const to = process.env.INQUIRY_TO_EMAIL || "studio@ninod.space";
-  const from = process.env.INQUIRY_FROM_EMAIL || "Nino D Website <inquiries@ninod.space>";
-  try {
-    const res = await fetch("https://api.resend.com/emails", {
-      method: "POST",
-      headers: { Authorization: `Bearer ${key}`, "Content-Type": "application/json" },
-      body: JSON.stringify({
-        from,
-        to: to.split(",").map((s) => s.trim()),
-        reply_to: q.email,
-        subject: q.item ? `Inquiry: ${q.item} — ${q.name}` : `Inquiry from ${q.name}`,
-        text: asText(q),
-      }),
-    });
-    return res.ok;
-  } catch {
-    return false;
-  }
-}
-
-async function logToFile(q: Inquiry): Promise<boolean> {
-  try {
-    await fs.mkdir(DATA_DIR, { recursive: true });
-    await fs.appendFile(LOG_FILE, JSON.stringify(q) + "\n", "utf8");
-    return true;
-  } catch {
-    return false;
-  }
-}
-
 export async function POST(req: Request) {
   let body: Record<string, unknown>;
   try {
@@ -128,8 +76,14 @@ export async function POST(req: Request) {
     return NextResponse.json({ ok: false, error: "invalid_fields" }, { status: 400 });
   }
 
-  const [telegram, email, stored] = await Promise.all([sendTelegram(q), sendEmail(q), logToFile(q)]);
-  const delivered = telegram || email;
+  const [delivered, stored] = await Promise.all([
+    notifyStudio({
+      subject: q.item ? `Inquiry: ${q.item} — ${q.name}` : `Inquiry from ${q.name}`,
+      text: asText(q),
+      replyTo: q.email,
+    }),
+    appendLog("inquiries.jsonl", q),
+  ]);
 
   if (!delivered) {
     // Not lost: the client switches to the prefilled WhatsApp / email hand-off.

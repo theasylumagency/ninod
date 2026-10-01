@@ -1,30 +1,47 @@
 import { NextResponse } from "next/server";
-import { promises as fs } from "fs";
-import path from "path";
+import { appendLog, notifyStudio } from "@/lib/notify";
 
-// Temporary store: newline-delimited JSON in /data.
-// Swap this handler for a provider (Mailchimp / Klaviyo / Beehiiv) later.
-const DATA_DIR = path.join(process.cwd(), "data");
-const FILE = path.join(DATA_DIR, "waitlist.jsonl");
+// Reservation list (Edition 01 and individual designs).
+// Each sign-up is sent to the studio (Telegram / email, see lib/notify.ts)
+// and appended to data/waitlist.jsonl as a backup copy.
+// Swap for a mailing provider (Mailchimp / Klaviyo / Beehiiv) later if needed.
 
 const EMAIL_RE = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
 
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const email = typeof body?.email === "string" ? body.email.trim().toLowerCase() : "";
-    const source = typeof body?.source === "string" ? body.source : "site";
+    const email = typeof body?.email === "string" ? body.email.trim().toLowerCase().slice(0, 200) : "";
+    const source = typeof body?.source === "string" ? body.source.slice(0, 120) : "site";
+    const page = typeof body?.page === "string" ? body.page.slice(0, 300) : "";
 
     if (!EMAIL_RE.test(email)) {
       return NextResponse.json({ error: "invalid_email" }, { status: 400 });
     }
 
-    const line =
-      JSON.stringify({ email, source, at: new Date().toISOString() }) + "\n";
+    const at = new Date().toISOString();
+    const design = source.startsWith("reserve:") ? source.slice("reserve:".length) : "";
 
-    await fs.mkdir(DATA_DIR, { recursive: true });
-    await fs.appendFile(FILE, line, "utf8");
+    const [notified, stored] = await Promise.all([
+      notifyStudio({
+        subject: design ? `Reservation list: ${design} — ${email}` : `Reservation list: ${email}`,
+        text: [
+          design ? `New reservation — ${design}` : "New reservation list sign-up",
+          `Email: ${email}`,
+          `Source: ${source}`,
+          page && `Page: ${page}`,
+          `Time (UTC): ${at}`,
+        ]
+          .filter(Boolean)
+          .join("\n"),
+        replyTo: email,
+      }),
+      appendLog("waitlist.jsonl", { email, source, page, at }),
+    ]);
 
+    if (!notified && !stored) {
+      return NextResponse.json({ error: "not_saved" }, { status: 503 });
+    }
     return NextResponse.json({ ok: true });
   } catch {
     return NextResponse.json({ error: "server_error" }, { status: 500 });

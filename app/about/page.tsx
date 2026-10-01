@@ -425,7 +425,7 @@ export default function AboutPage() {
       <WaitlistSection
         kicker="Edition 01"
         headline="You have seen the world. Now wear a fragment of it."
-        subcopy="Selected works become limited silk editions — one hundred numbered pieces, opened once, then closed forever. Edition 01 opens in September. Join the list for first access."
+        subcopy="Selected works become limited silk editions — one hundred numbered pieces, opened once, then closed forever. Edition 01 is in preparation — join the reservation list for first access, no payment now."
         source="about"
       />
     </div>
