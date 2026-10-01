@@ -32,6 +32,11 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+!.env.example
+
+# collected form submissions (server-side backup log)
+/data/inquiries.jsonl
+/data/waitlist.jsonl
 
 # vercel
 .vercel

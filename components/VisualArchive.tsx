@@ -182,12 +182,9 @@ export function VisualArchiveIntro() {
         <h2 className="font-serif italic text-2xl md:text-3xl text-ink-black leading-relaxed max-w-2xl mx-auto font-light">
           The Visual Archive begins with eight works selected by the artist as key entries into her practice.
         </h2>
-        <div className="space-y-6 text-xs text-stone-grey leading-relaxed max-w-xl mx-auto tracking-wide font-sans text-justify md:text-center">
+        <div className="space-y-6 text-xs text-stone-grey leading-relaxed max-w-xl mx-auto tracking-wide font-sans md:text-center">
           <p>
             Each work stands alone, yet together they reveal the recurring logic of Nino Devdariani’s world: layered figures, theatrical compositions, textile memory, cultural fragments, historical echoes, humor, excess, and private mythology.
-          </p>
-          <p>
-            The archive is designed to be entered slowly — first through image, then through detail, and finally through the stories hidden inside the painted surface.
           </p>
         </div>
       </div>
@@ -268,12 +265,13 @@ export function ArchiveWorkPlate({ entry }: ArchiveWorkPlateProps) {
         <div className={imageColClasses}>
           <Link href={`/visual-archive/${slug}`} className="block group">
             <div className={`relative w-full ${imageAspect} overflow-hidden safari-clip-fix bg-paper-grey border border-stone-grey/10 transition-colors duration-500 hover:border-deep-oxblood/35`}>
+              {/* object-contain: the painting is never cropped — the paper-grey field acts as a mat */}
               <Image
                 src={image.src}
                 alt={image.alt}
                 fill
                 loading="lazy"
-                className="object-cover transition-transform duration-[3000ms] ease-out scale-100 group-hover:scale-[1.02]"
+                className="object-contain transition-transform duration-[3000ms] ease-out scale-100 group-hover:scale-[1.02]"
                 sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 60vw"
               />
               <div className="absolute inset-0 bg-ink-black/0 transition-colors duration-700 group-hover:bg-ink-black/5 mix-blend-overlay" />
@@ -307,17 +305,12 @@ export function ArchiveWorkPlate({ entry }: ArchiveWorkPlateProps) {
             </p>
           )}
 
-          {/* Tags */}
-          <div className="flex flex-wrap gap-2 pt-2">
-            {tags.map((tag) => (
-              <span
-                key={tag}
-                className="bg-paper-grey/50 border border-stone-grey/15 py-1 px-3 text-[9px] uppercase tracking-widest text-stone-grey font-medium rounded-sm"
-              >
-                {tag}
-              </span>
-            ))}
-          </div>
+          {/* Thematic line — a quiet catalogue notation, not filter chips */}
+          {tags.length > 0 && (
+            <p className="font-cormorant italic text-sm text-stone-grey tracking-wide pt-2">
+              {tags.join(" · ")}
+            </p>
+          )}
 
           {/* Catalog Entry Link */}
           <div className="pt-4 border-t border-stone-grey/10">
@@ -594,6 +587,12 @@ interface WorkMetaProps {
 export function WorkMeta({ meta, tags }: WorkMetaProps) {
   if (!meta) return null;
 
+  // A gallery never says "to be confirmed" — unknown facts are simply omitted.
+  const hasYear = Boolean(meta.year && meta.year !== "Year to be confirmed");
+  const hasDimensions = Boolean(
+    meta.dimensions && meta.dimensions !== "Dimensions to be confirmed"
+  );
+
   return (
     <div className="bg-paper-grey/30 border border-stone-grey/15 p-6 space-y-6 text-xs font-sans tracking-wide">
       <div className="space-y-4">
@@ -609,14 +608,18 @@ export function WorkMeta({ meta, tags }: WorkMetaProps) {
             <span className="text-stone-grey uppercase text-[9px] tracking-wider">Medium</span>
             <span className="font-medium">{meta.medium || "Acrylic and ink on canvas"}</span>
           </div>
-          <div className="flex justify-between py-1 border-b border-stone-grey/10">
-            <span className="text-stone-grey uppercase text-[9px] tracking-wider">Year</span>
-            <span className="font-medium italic">{meta.year || "Year to be confirmed"}</span>
-          </div>
-          <div className="flex justify-between py-1 border-b border-stone-grey/10">
-            <span className="text-stone-grey uppercase text-[9px] tracking-wider">Dimensions</span>
-            <span className="font-medium">{meta.dimensions || "Dimensions to be confirmed"}</span>
-          </div>
+          {hasYear && (
+            <div className="flex justify-between py-1 border-b border-stone-grey/10">
+              <span className="text-stone-grey uppercase text-[9px] tracking-wider">Year</span>
+              <span className="font-medium">{meta.year}</span>
+            </div>
+          )}
+          {hasDimensions && (
+            <div className="flex justify-between py-1 border-b border-stone-grey/10">
+              <span className="text-stone-grey uppercase text-[9px] tracking-wider">Dimensions</span>
+              <span className="font-medium">{meta.dimensions}</span>
+            </div>
+          )}
           <div className="flex justify-between py-1 border-b border-stone-grey/10">
             <span className="text-stone-grey uppercase text-[9px] tracking-wider">Status</span>
             <span className="font-serif text-deep-oxblood font-semibold tracking-wider uppercase text-[10px]">

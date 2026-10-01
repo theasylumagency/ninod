@@ -17,6 +17,7 @@ export default function SiteHeader() {
   }
 
   const links = [
+    { name: "Polyphony", href: "/polyphony" },
     { name: "Visual Archive", href: "/visual-archive" },
     { name: "Wearable Archive", href: "/wearable-archive" },
     { name: "About", href: "/about" },
@@ -37,9 +38,9 @@ export default function SiteHeader() {
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center gap-10">
+        <nav className="hidden md:flex items-center gap-6 lg:gap-10">
           {links.map((link) => {
-            const isActive = pathname === link.href;
+            const isActive = pathname === link.href || pathname.startsWith(`${link.href}/`);
             return (
               <Link
                 key={link.name}
@@ -110,7 +111,7 @@ export default function SiteHeader() {
       >
         <nav className="flex flex-col items-center gap-8">
           {links.map((link) => {
-            const isActive = pathname === link.href;
+            const isActive = pathname === link.href || pathname.startsWith(`${link.href}/`);
             return (
               <Link
                 key={link.name}

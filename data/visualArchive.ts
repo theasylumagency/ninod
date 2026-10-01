@@ -185,9 +185,12 @@ export const visualArchiveEntries: VisualArchiveEntry[] = [
       ctaLabel: "Explore the Wearable Archive",
       href: "/wearable-archive",
     },
+    // Facts per the artist's Polyphony price list (Oct 2026).
     meta: {
       ...defaultMeta,
+      medium: "Acrylic, ink and mixed technique on paper",
       year: "2026",
+      dimensions: "45 × 65 cm",
     },
   },
   {
@@ -232,9 +235,12 @@ export const visualArchiveEntries: VisualArchiveEntry[] = [
       ctaLabel: "Explore the Wearable Archive",
       href: "/wearable-archive",
     },
+    // Facts per the artist's Polyphony price list (Oct 2026), where this work is titled "Down on the Ground".
     meta: {
       ...defaultMeta,
-      year: "2025",
+      medium: "Acrylic, ink and mixed technique on paper",
+      year: "2024",
+      dimensions: "50 × 67 cm",
     },
   },
   {
@@ -324,7 +330,13 @@ export const visualArchiveEntries: VisualArchiveEntry[] = [
       ctaLabel: "Explore the Wearable Archive",
       href: "/wearable-archive",
     },
-    meta: defaultMeta,
+    // Facts per the artist's Polyphony price list (Oct 2026) — shown as "Art Textile" in Polyphony.
+    meta: {
+      ...defaultMeta,
+      medium: "Acrylic, ink and mixed technique on paper",
+      year: "2024",
+      dimensions: "50 × 67 cm",
+    },
   },
   {
     id: "visual-archive-007",

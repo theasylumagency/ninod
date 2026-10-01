@@ -34,6 +34,9 @@ export default function SiteFooter() {
         <div className="col-span-1 md:col-span-3 flex flex-col space-y-4">
           <h4 className="text-xs uppercase tracking-[0.25em] font-medium text-stone-grey">Navigation</h4>
           <nav className="flex flex-col space-y-3">
+            <Link href="/polyphony" className="text-xs uppercase tracking-[0.2em] hover:text-deep-oxblood transition-colors w-fit">
+              Polyphony
+            </Link>
             <Link href="/visual-archive" className="text-xs uppercase tracking-[0.2em] hover:text-deep-oxblood transition-colors w-fit">
               Visual Archive
             </Link>

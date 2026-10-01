@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { visualArchiveEntries } from "@/data/visualArchive";
+import { POLYPHONY, polyphonyWorks } from "@/data/polyphony";
 
 const siteUrl = "https://ninod.space";
 
@@ -10,6 +11,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${siteUrl}/`, lastModified: now, changeFrequency: "weekly", priority: 1 },
     { url: `${siteUrl}/about`, lastModified: now, changeFrequency: "monthly", priority: 0.8 },
     { url: `${siteUrl}/studio`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
+    { url: `${siteUrl}${POLYPHONY.path}`, lastModified: now, changeFrequency: "weekly", priority: 0.95 },
     { url: `${siteUrl}/visual-archive`, lastModified: now, changeFrequency: "weekly", priority: 0.9 },
     { url: `${siteUrl}/wearable-archive`, lastModified: now, changeFrequency: "weekly", priority: 0.9 },
     { url: `${siteUrl}/acquire`, lastModified: now, changeFrequency: "monthly", priority: 0.6 },
@@ -25,5 +27,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }));
 
-  return [...staticRoutes, ...archiveRoutes];
+  const polyphonyRoutes: MetadataRoute.Sitemap = polyphonyWorks.map((w) => ({
+    url: `${siteUrl}${POLYPHONY.path}/${w.slug}`,
+    lastModified: now,
+    changeFrequency: "weekly",
+    priority: 0.85,
+  }));
+
+  return [...staticRoutes, ...polyphonyRoutes, ...archiveRoutes];
 }

@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import WearableSlider from "@/components/WearableSlider";
 import WaitlistSection from "@/components/WaitlistSection";
+import { PolyphonyFeature } from "@/components/Polyphony";
 
 export const metadata: Metadata = {
   title: { absolute: "Nino D — Paintings that leave the wall" },
@@ -123,6 +124,11 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* ==========================================
+          POLYPHONY — current collection (toggle: data/polyphony.ts → featured)
+          ========================================== */}
+      <PolyphonyFeature />
 
       {/* ==========================================
           SECTION 01 - PAINTINGS / ORIGIN

@@ -3,6 +3,7 @@
 import { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import InquiryForm from "@/components/InquiryForm";
+import { STUDIO_CONTACT, whatsappHref } from "@/data/polyphony";
 
 function AcquireContent() {
   const searchParams = useSearchParams();
@@ -30,14 +31,14 @@ function AcquireContent() {
 
         <div className="space-y-2 pt-6 border-t border-stone-grey/15">
           <p className="text-[9px] uppercase tracking-widest text-stone-grey font-medium">Studio Representation</p>
-          <p className="text-xs font-sans text-ink-black font-medium">studio@ninod.com</p>
-          <p className="text-xs font-sans text-ink-black font-medium">+44 (0) 20 7946 0192</p>
+          <a href={`mailto:${STUDIO_CONTACT.email}`} className="block text-xs font-sans text-ink-black font-medium hover:text-deep-oxblood transition-colors">{STUDIO_CONTACT.email}</a>
+          <a href={whatsappHref(itemParam ? `Hello, I am interested in ${itemParam}.` : "Hello,")} target="_blank" rel="noopener noreferrer" className="block text-xs font-sans text-ink-black font-medium hover:text-deep-oxblood transition-colors">WhatsApp {STUDIO_CONTACT.phoneDisplay}</a>
         </div>
       </div>
 
       {/* Right Column - Form */}
       <div className="col-span-1 md:col-span-8 w-full">
-        <InquiryForm />
+        <InquiryForm source="acquire" itemLabel={itemParam} defaultInterest={interestParam} />
       </div>
     </div>
   );

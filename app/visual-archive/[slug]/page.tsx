@@ -3,6 +3,7 @@ import { type Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { visualArchiveEntries } from "@/data/visualArchive";
+import { POLYPHONY, formatUsd, getPolyphonyWorkByArchiveSlug } from "@/data/polyphony";
 import {
   WorkMeta,
   SelectedDetails,
@@ -78,7 +79,10 @@ export default async function VisualArchiveEntryPage({ params }: PageProps) {
   } = entry;
 
   const numString = order.toString().padStart(2, "0");
-  const acquireUrl = `/acquire?interest=Original%20Work&item=${encodeURIComponent(title)}`;
+  const polyphonyWork = getPolyphonyWorkByArchiveSlug(slug);
+  const acquireUrl = polyphonyWork
+    ? `${POLYPHONY.path}/${polyphonyWork.slug}#inquire`
+    : `/acquire?interest=Original%20Work&item=${encodeURIComponent(title)}`;
 
   const siteUrl = "https://ninod.space";
   const pageUrl = `${siteUrl}/visual-archive/${slug}`;
@@ -195,6 +199,29 @@ export default async function VisualArchiveEntryPage({ params }: PageProps) {
 
           {/* Right Column — Registry Details, Observation, Relations */}
           <div className="col-span-1 lg:col-span-5 space-y-10 lg:pl-4">
+            {/* Polyphony — this work is on view and available */}
+            {polyphonyWork && (
+              <Link
+                href={`${POLYPHONY.path}/${polyphonyWork.slug}`}
+                className="group block border border-deep-oxblood/30 bg-warm-ivory p-5 space-y-2 hover:border-deep-oxblood transition-colors"
+              >
+                <span className="block text-[9px] uppercase tracking-[0.25em] text-deep-oxblood font-semibold">
+                  On view — {POLYPHONY.title}
+                </span>
+                <span className="block font-serif text-lg text-ink-black">
+                  {polyphonyWork.title !== title ? `Exhibited as “${polyphonyWork.title}”` : polyphonyWork.title}
+                  <span className="text-stone-grey">, {polyphonyWork.year}</span>
+                </span>
+                <span className="block text-[11px] text-stone-grey tracking-wide">
+                  {POLYPHONY.exhibition.name} · {POLYPHONY.exhibition.datesLabel}
+                  {polyphonyWork.status !== "sold" && <> · {formatUsd(polyphonyWork.priceUsd)}</>}
+                </span>
+                <span className="block text-[10px] uppercase tracking-[0.25em] text-ink-black group-hover:text-deep-oxblood pt-1">
+                  Price &amp; availability &rarr;
+                </span>
+              </Link>
+            )}
+
             {/* Registry Info */}
             <WorkMeta meta={meta} tags={tags} />
             

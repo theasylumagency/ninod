@@ -5,6 +5,7 @@ import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 import AnnounceBar from "@/components/AnnounceBar";
 import { VaultProvider } from "@/components/VaultContext";
+import GoogleAnalytics from "@/components/GoogleAnalytics";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -136,6 +137,7 @@ export default function RootLayout({
           <main className="flex-grow flex flex-col w-full">{children}</main>
           <SiteFooter />
         </VaultProvider>
+        <GoogleAnalytics />
       </body>
     </html>
   );
